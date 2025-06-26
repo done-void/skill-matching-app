@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案件詳細 - Webアプリケーション開発エンジニア募集</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+    </style>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#8B5CF6'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+</head>
+<body class="bg-white text-gray-900">
+    <!-- ナビゲーションバー -->
+    <nav class="fixed top-0 w-full bg-white shadow-sm z-50 px-4 py-3 flex items-center justify-between">
+        <a href="https://readdy.ai/home/1ba021c7-5f2f-42bb-8777-a83709ae9824/28ddb03c-607e-4b30-a9a2-2a8fe2641411" data-readdy="true" class="w-8 h-8 flex items-center justify-center text-gray-700">
+            <i class="ri-arrow-left-line ri-lg"></i>
+        </a>
+        <h1 class="text-base font-medium">案件詳細</h1>
+        <button id="favoriteBtn" class="w-8 h-8 flex items-center justify-center text-gray-700">
+            <i class="ri-heart-line ri-lg" id="favoriteIcon"></i>
+        </button>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <main class="pt-16 pb-24">
+        <!-- 案件基本情報 -->
+        <section class="px-4 py-5">
+            <div class="flex items-start gap-3 mb-4">
+                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
+                    <span class="font-['Pacifico'] text-primary text-lg">logo</span>
+                </div>
+                <div>
+                    <h2 class="text-base font-medium">株式会社テックイノベーション</h2>
+                    <p class="text-sm text-gray-500 flex items-center mt-1">
+                        <i class="ri-map-pin-line ri-sm mr-1 w-4 h-4 flex items-center justify-center"></i>
+                        東京 · リモート可
+                    </p>
+                </div>
+            </div>
+
+            <h1 class="text-xl font-bold mb-3">Webアプリケーション開発エンジニア募集</h1>
+            
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Next.js</span>
+                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Firebase</span>
+                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">React</span>
+                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">TypeScript</span>
+            </div>
+
+            <div class="bg-gray-50 p-3 rounded-lg">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600">報酬</span>
+                    <span class="text-base font-medium">¥80,000 〜 ¥120,000/月</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- タブナビゲーション -->
+        <section class="border-t border-gray-200">
+            <div class="overflow-x-auto">
+                <div class="flex whitespace-nowrap px-1 py-1 border-b border-gray-200" id="tabContainer">
+                    <button class="tab-button px-4 py-2 text-sm font-medium text-primary border-b-2 border-primary rounded-full" data-tab="overview">案件概要</button>
+                    <button class="tab-button px-4 py-2 text-sm font-medium text-gray-500 rounded-full" data-tab="duties">業務内容</button>
+                    <button class="tab-button px-4 py-2 text-sm font-medium text-gray-500 rounded-full" data-tab="required">必須スキル</button>
+                    <button class="tab-button px-4 py-2 text-sm font-medium text-gray-500 rounded-full" data-tab="preferred">歓迎スキル</button>
+                    <button class="tab-button px-4 py-2 text-sm font-medium text-gray-500 rounded-full" data-tab="conditions">勤務条件</button>
+                    <button class="tab-button px-4 py-2 text-sm font-medium text-gray-500 rounded-full" data-tab="company">企業情報</button>
+                </div>
+            </div>
+
+            <!-- タブコンテンツ -->
+            <div class="px-4 py-5">
+                <!-- 案件概要 -->
+                <div class="tab-content block" id="overview">
+                    <p class="text-sm leading-relaxed mb-4">
+                        当社では、新規Webアプリケーション開発プロジェクトに参画いただけるエンジニアを募集しています。Next.js、Firebase、React、TypeScriptを活用した最新技術スタックでの開発経験がある方を求めています。
+                    </p>
+                    <p class="text-sm leading-relaxed mb-4">
+                        プロジェクトは、企業向けの業務効率化ツールの開発で、フロントエンド開発を中心に担当していただきます。アジャイル開発手法を採用しており、2週間ごとのスプリントで進行します。
+                    </p>
+                    <p class="text-sm leading-relaxed">
+                        リモートワーク中心ですが、月に1〜2回程度のオフィス出社があります。チームは5名程度の少数精鋭で、技術的な挑戦を楽しめる環境です。
+                    </p>
+                </div>
+
+                <!-- 業務内容 -->
+                <div class="tab-content hidden" id="duties">
+                    <ul class="list-disc list-inside text-sm leading-relaxed space-y-3 ml-1">
+                        <li>Next.jsを用いたフロントエンド開発</li>
+                        <li>Firebaseを活用したバックエンド連携</li>
+                        <li>UI/UXの実装とパフォーマンス最適化</li>
+                        <li>コードレビューとリファクタリング</li>
+                        <li>技術選定と設計への参画</li>
+                        <li>アジャイル開発におけるスクラムイベントへの参加</li>
+                        <li>ドキュメント作成と保守</li>
+                    </ul>
+                </div>
+
+                <!-- 必須スキル -->
+                <div class="tab-content hidden" id="required">
+                    <ul class="list-disc list-inside text-sm leading-relaxed space-y-3 ml-1">
+                        <li>React.jsでの開発経験（2年以上）</li>
+                        <li>TypeScriptの実務経験（1年以上）</li>
+                        <li>HTML/CSS/JavaScriptの基本的な理解</li>
+                        <li>GitHubなどのバージョン管理ツールの使用経験</li>
+                        <li>コミュニケーション能力と自己管理能力</li>
+                        <li>基本的な英語ドキュメントの読解力</li>
+                    </ul>
+                </div>
+
+                <!-- 歓迎スキル -->
+                <div class="tab-content hidden" id="preferred">
+                    <ul class="list-disc list-inside text-sm leading-relaxed space-y-3 ml-1">
+                        <li>Next.jsでの開発経験</li>
+                        <li>Firebaseを用いたアプリケーション開発経験</li>
+                        <li>TailwindCSSなどのユーティリティファーストCSSの経験</li>
+                        <li>Jest、React Testing Libraryなどのテスト経験</li>
+                        <li>CI/CDパイプラインの構築経験</li>
+                        <li>アジャイル/スクラム開発の経験</li>
+                        <li>UI/UXデザインへの理解</li>
+                        <li>GraphQLの使用経験</li>
+                    </ul>
+                </div>
+
+                <!-- 勤務条件 -->
+                <div class="tab-content hidden" id="conditions">
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="text-sm font-medium mb-1">勤務形態</h3>
+                            <p class="text-sm text-gray-700">リモートワーク中心（月1〜2回の出社あり）</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium mb-1">勤務時間</h3>
+                            <p class="text-sm text-gray-700">週3〜5日、1日6〜8時間（応相談）</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium mb-1">契約期間</h3>
+                            <p class="text-sm text-gray-700">6ヶ月（延長の可能性あり）</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium mb-1">報酬</h3>
+                            <p class="text-sm text-gray-700">月額 80,000円〜120,000円（スキル・経験による）</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium mb-1">支払いサイクル</h3>
+                            <p class="text-sm text-gray-700">月末締め、翌月15日払い</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium mb-1">その他</h3>
+                            <p class="text-sm text-gray-700">オンラインミーティングツール、チャットツールは当社が提供します</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 企業情報 -->
+                <div class="tab-content hidden" id="company">
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="text-sm font-medium mb-1">会社名</h3>
+                            <p class="text-sm text-gray-700">株式会社テックイノベーション</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium mb-1">設立</h3>
+                            <p class="text-sm text-gray-700">2018年4月</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium mb-1">従業員数</h3>
+                            <p class="text-sm text-gray-700">35名（エンジニア25名、デザイナー5名、その他5名）</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium mb-1">事業内容</h3>
+                            <p class="text-sm text-gray-700">Webアプリケーション開発、モバイルアプリ開発、UI/UXデザイン、コンサルティング</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium mb-1">所在地</h3>
+                            <p class="text-sm text-gray-700">東京都渋谷区神宮前5-52-2 青山オーバルビル4F</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium mb-1">URL</h3>
+                            <p class="text-sm text-primary">https://tech-innovation.co.jp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 質問セクション -->
+        <section class="px-4 py-5 border-t border-gray-200">
+            <h2 class="text-lg font-medium mb-3">質問する</h2>
+            <p class="text-sm text-gray-600 mb-4">案件について不明点があれば、お気軽にご質問ください。</p>
+            <button id="questionBtn" class="w-full py-3 bg-white border border-primary text-primary font-medium rounded-button flex items-center justify-center">
+                <i class="ri-question-line ri-lg mr-2 w-5 h-5 flex items-center justify-center"></i>
+                質問を送信する
+            </button>
+        </section>
+
+        <!-- 類似案件 -->
+        <section class="px-4 py-5 border-t border-gray-200">
+            <h2 class="text-lg font-medium mb-4">類似案件</h2>
+            <div class="overflow-x-auto pb-2">
+                <div class="flex gap-4 w-max">
+                    <!-- 類似案件カード1 -->
+                    <div class="w-64 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                        <div class="p-3">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
+                                    <span class="font-['Pacifico'] text-primary text-xs">logo</span>
+                                </div>
+                                <span class="text-xs">株式会社デジタルフロント</span>
+                            </div>
+                            <h3 class="text-sm font-medium mb-2">フロントエンドエンジニア募集</h3>
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">React</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">TypeScript</span>
+                            </div>
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-gray-500">週3日〜</span>
+                                <span class="font-medium">¥70,000〜/月</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 類似案件カード2 -->
+                    <div class="w-64 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                        <div class="p-3">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
+                                    <span class="font-['Pacifico'] text-primary text-xs">logo</span>
+                                </div>
+                                <span class="text-xs">グローバルウェブ株式会社</span>
+                            </div>
+                            <h3 class="text-sm font-medium mb-2">Next.js開発エンジニア</h3>
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">Next.js</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">Firebase</span>
+                            </div>
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-gray-500">週4日〜</span>
+                                <span class="font-medium">¥90,000〜/月</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 類似案件カード3 -->
+                    <div class="w-64 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                        <div class="p-3">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
+                                    <span class="font-['Pacifico'] text-primary text-xs">logo</span>
+                                </div>
+                                <span class="text-xs">テックスタート株式会社</span>
+                            </div>
+                            <h3 class="text-sm font-medium mb-2">フルスタックエンジニア募集</h3>
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">React</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">Node.js</span>
+                            </div>
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-gray-500">週5日</span>
+                                <span class="font-medium">¥150,000〜/月</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 応募ボタン（固定） -->
+    <div class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4">
+        <button id="applyBtn" class="w-full py-3 bg-primary text-white font-medium rounded-button flex items-center justify-center">
+            <i class="ri-send-plane-fill ri-lg mr-2 w-5 h-5 flex items-center justify-center"></i>
+            この案件に応募する
+        </button>
+    </div>
+
+    <!-- 質問モーダル -->
+    <div id="questionModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg w-[90%] max-w-md max-h-[80vh] overflow-hidden">
+            <div class="p-4 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-medium">質問を送信</h3>
+                <button id="closeModalBtn" class="w-8 h-8 flex items-center justify-center text-gray-500">
+                    <i class="ri-close-line ri-lg"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <div class="mb-4">
+                    <label for="questionText" class="block text-sm font-medium text-gray-700 mb-1">質問内容</label>
+                    <textarea id="questionText" rows="5" class="w-full border border-gray-300 rounded-lg p-3 text-sm" placeholder="案件について質問したいことを入力してください"></textarea>
+                    <p class="text-xs text-gray-500 mt-1"><span id="charCount">0</span>/500文字</p>
+                </div>
+                <button id="sendQuestionBtn" class="w-full py-3 bg-primary text-white font-medium rounded-button">送信する</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 応募完了モーダル -->
+    <div id="applyCompleteModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg w-[90%] max-w-md overflow-hidden">
+            <div class="p-6 text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="ri-check-line ri-2x text-green-500 w-8 h-8 flex items-center justify-center"></i>
+                </div>
+                <h3 class="text-lg font-medium mb-2">応募が完了しました</h3>
+                <p class="text-sm text-gray-600 mb-4">企業からの連絡をお待ちください。通常1〜3営業日以内にご連絡いたします。</p>
+                <button id="closeApplyModalBtn" class="w-full py-3 bg-primary text-white font-medium rounded-button">閉じる</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- タブ切り替え用スクリプト -->
+    <script id="tabScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // アクティブなタブボタンのスタイルを更新
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                        btn.classList.add('text-gray-500');
+                    });
+                    button.classList.remove('text-gray-500');
+                    button.classList.add('text-primary', 'border-b-2', 'border-primary');
+                    
+                    // タブコンテンツの表示/非表示を切り替え
+                    const tabId = button.getAttribute('data-tab');
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    document.getElementById(tabId).classList.remove('hidden');
+                });
+            });
+        });
+    </script>
+
+    <!-- お気に入りボタン用スクリプト -->
+    <script id="favoriteScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const favoriteBtn = document.getElementById('favoriteBtn');
+            const favoriteIcon = document.getElementById('favoriteIcon');
+            let isFavorite = false;
+            
+            favoriteBtn.addEventListener('click', () => {
+                isFavorite = !isFavorite;
+                if (isFavorite) {
+                    favoriteIcon.classList.remove('ri-heart-line');
+                    favoriteIcon.classList.add('ri-heart-fill', 'text-red-500');
+                } else {
+                    favoriteIcon.classList.remove('ri-heart-fill', 'text-red-500');
+                    favoriteIcon.classList.add('ri-heart-line');
+                }
+            });
+        });
+    </script>
+
+    <!-- 質問モーダル用スクリプト -->
+    <script id="questionModalScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const questionBtn = document.getElementById('questionBtn');
+            const questionModal = document.getElementById('questionModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const questionText = document.getElementById('questionText');
+            const charCount = document.getElementById('charCount');
+            const sendQuestionBtn = document.getElementById('sendQuestionBtn');
+            
+            // モーダルを開く
+            questionBtn.addEventListener('click', () => {
+                questionModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // モーダルを閉じる
+            closeModalBtn.addEventListener('click', () => {
+                questionModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // 文字数カウント
+            questionText.addEventListener('input', () => {
+                const count = questionText.value.length;
+                charCount.textContent = count;
+                
+                if (count > 500) {
+                    charCount.classList.add('text-red-500');
+                    questionText.value = questionText.value.substring(0, 500);
+                    charCount.textContent = 500;
+                } else {
+                    charCount.classList.remove('text-red-500');
+                }
+            });
+            
+            // 質問送信
+            sendQuestionBtn.addEventListener('click', () => {
+                if (questionText.value.trim() === '') {
+                    // 入力が空の場合
+                    questionText.classList.add('border-red-500');
+                    return;
+                }
+                
+                // 送信処理（ここではモーダルを閉じるだけ）
+                questionModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                
+                // 送信完了メッセージ
+                const toast = document.createElement('div');
+                toast.className = 'fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-lg text-sm';
+                toast.textContent = '質問を送信しました';
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.remove();
+                }, 3000);
+                
+                // フォームをリセット
+                questionText.value = '';
+                charCount.textContent = '0';
+            });
+        });
+    </script>
+
+    <!-- 応募ボタン用スクリプト -->
+    <script id="applyScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const applyBtn = document.getElementById('applyBtn');
+            const applyCompleteModal = document.getElementById('applyCompleteModal');
+            const closeApplyModalBtn = document.getElementById('closeApplyModalBtn');
+            
+            applyBtn.addEventListener('click', () => {
+                // 応募処理（ここではモーダルを表示するだけ）
+                applyCompleteModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeApplyModalBtn.addEventListener('click', () => {
+                applyCompleteModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+        });
+    </script>
+
+<!-- ボトムナビゲーション -->
+<nav class="bg-white shadow-lg fixed bottom-0 left-0 w-full z-50 border-t border-gray-200">
+  <div class="grid grid-cols-5 h-16 text-xs">
+    <a href="/home.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-home-5-line ri-lg"></i>
+      </div>
+      <span class="mt-1">ホーム</span>
+    </a>
+    <a href="/search.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-search-line ri-lg"></i>
+      </div>
+      <span class="mt-1">検索</span>
+    </a>
+    <a href="/skills.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-search-line ri-lg"></i>
+      </div>
+      <span class="mt-1">スキル</span>
+    </a>
+    <a href="/messages.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-message-3-line ri-lg"></i>
+      </div>
+      <span class="mt-1">メッセージ</span>
+    </a>
+    <a href="/profile.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-line ri-lg"></i>
+      </div>
+      <span class="mt-1">プロフィール</span>
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スキルマッチング</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#F59E0B'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Noto Sans JP', sans-serif;
+background-color: #FAFAFA;
+}
+.tab-active {
+color: #4F46E5;
+border-bottom: 2px solid #4F46E5;
+}
+.skill-tag {
+background-color: rgba(79, 70, 229, 0.1);
+color: #4F46E5;
+}
+</style>
+</head>
+<body class="bg-white">
+<!-- ナビゲーションバー -->
+<nav class="bg-white shadow-md fixed top-0 left-0 w-full z-50 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center">
+<h1 class="text-xl font-['Pacifico'] text-primary">logo</h1>
+</div>
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 flex items-center justify-center relative cursor-pointer">
+<i class="ri-notification-3-line ri-lg"></i>
+<span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+</div>
+</div>
+</nav>
+<!-- メインコンテンツ -->
+<main class="pt-16 pb-20">
+<!-- タブ切り替え -->
+<div class="flex border-b border-gray-200 px-4">
+<button class="py-3 px-4 text-sm font-medium tab-active">おすすめ案件</button>
+<button class="py-3 px-4 text-sm font-medium text-gray-500">フォロー中</button>
+</div>
+<!-- フィルター -->
+<div class="px-4 py-3 flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+<span>フィルター</span>
+<i class="ri-filter-3-line"></i>
+</button>
+<button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+<span>スキル</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+<button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+<span>報酬</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+</div>
+<button class="flex items-center space-x-1 text-xs text-gray-500 cursor-pointer">
+<i class="ri-equalizer-line"></i>
+<span>並び替え</span>
+</button>
+</div>
+<!-- 案件リスト -->
+<div class="px-4 space-y-4 mt-2">
+<!-- 案件カード1 -->
+<a href="https://readdy.ai/home/1ba021c7-5f2f-42bb-8777-a83709ae9824/07604b45-1b3c-48ef-aa63-99fc6056b892" data-readdy="true" class="block">
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=minimal%20tech%20company%20logo%2C%20professional%2C%20clean%20design%2C%20blue%20and%20white%2C%20isolated%20on%20white%20background%2C%20centered%20composition&width=100&height=100&seq=1&orientation=squarish" alt="企業ロゴ" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-medium text-sm">株式会社テックイノベーション</h3>
+<p class="text-xs text-gray-500">東京 · リモート可</p>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+<i class="ri-heart-line ri-lg"></i>
+</button>
+</div>
+<h2 class="font-medium mt-3">Webアプリケーション開発エンジニア募集</h2>
+<p class="text-sm text-gray-600 mt-1">Next.jsとFirebaseを使用したSPAの開発。UI/UXを重視したモダンなアプリケーション構築経験者歓迎。</p>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="skill-tag text-xs px-2 py-1 rounded-full">Next.js</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">Firebase</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">React</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">TypeScript</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center space-x-2">
+<span class="text-sm font-medium text-primary">¥80,000 〜 ¥120,000</span>
+<span class="text-xs text-gray-500">/月</span>
+</div>
+<span class="text-xs text-gray-500">2日前</span>
+</div>
+</div>
+</a>
+<!-- 案件カード2 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=minimal%20design%20agency%20logo%2C%20creative%2C%20modern%2C%20orange%20and%20black%2C%20isolated%20on%20white%20background%2C%20centered%20composition&width=100&height=100&seq=2&orientation=squarish" alt="企業ロゴ" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-medium text-sm">デザインスタジオ クリエイト</h3>
+<p class="text-xs text-gray-500">大阪 · 週2日出社</p>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+<i class="ri-heart-line ri-lg"></i>
+</button>
+</div>
+<h2 class="font-medium mt-3">UIデザイナー募集（Figma経験者優遇）</h2>
+<p class="text-sm text-gray-600 mt-1">当社クライアント向けWebサイトのUI設計・デザイン制作。モバイルファーストの考え方ができる方。</p>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="skill-tag text-xs px-2 py-1 rounded-full">Figma</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">UI/UX</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">Webデザイン</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center space-x-2">
+<span class="text-sm font-medium text-primary">¥5,000 〜 ¥8,000</span>
+<span class="text-xs text-gray-500">/時間</span>
+</div>
+<span class="text-xs text-gray-500">4日前</span>
+</div>
+</div>
+<!-- 案件カード3 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=minimal%20marketing%20agency%20logo%2C%20professional%2C%20green%20and%20gray%2C%20isolated%20on%20white%20background%2C%20centered%20composition&width=100&height=100&seq=3&orientation=squarish" alt="企業ロゴ" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-medium text-sm">グロースマーケティング株式会社</h3>
+<p class="text-xs text-gray-500">福岡 · フルリモート</p>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-primary cursor-pointer">
+<i class="ri-heart-fill ri-lg"></i>
+</button>
+</div>
+<h2 class="font-medium mt-3">SNSマーケティングスペシャリスト募集</h2>
+<p class="text-sm text-gray-600 mt-1">Instagram、TikTokを中心としたSNS運用代行。コンテンツ企画から分析まで一貫して担当いただける方。</p>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="skill-tag text-xs px-2 py-1 rounded-full">SNSマーケティング</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">コンテンツ制作</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">データ分析</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center space-x-2">
+<span class="text-sm font-medium text-primary">¥150,000 〜 ¥250,000</span>
+<span class="text-xs text-gray-500">/月</span>
+</div>
+<span class="text-xs text-gray-500">1週間前</span>
+</div>
+</div>
+<!-- 案件カード4 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=minimal%20education%20company%20logo%2C%20professional%2C%20purple%20and%20white%2C%20isolated%20on%20white%20background%2C%20centered%20composition&width=100&height=100&seq=4&orientation=squarish" alt="企業ロゴ" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-medium text-sm">エデュテック・ラーニング</h3>
+<p class="text-xs text-gray-500">名古屋 · ハイブリッド</p>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+<i class="ri-heart-line ri-lg"></i>
+</button>
+</div>
+<h2 class="font-medium mt-3">オンライン教育コンテンツ制作者募集</h2>
+<p class="text-sm text-gray-600 mt-1">プログラミング学習教材の制作。わかりやすい解説と実践的な課題設計ができる方。特にPython、JavaScriptの知見がある方歓迎。</p>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="skill-tag text-xs px-2 py-1 rounded-full">教育コンテンツ</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">Python</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">JavaScript</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center space-x-2">
+<span class="text-sm font-medium text-primary">¥50,000 〜 ¥70,000</span>
+<span class="text-xs text-gray-500">/案件</span>
+</div>
+<span class="text-xs text-gray-500">3日前</span>
+</div>
+</div>
+<!-- 案件カード5 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=minimal%20finance%20company%20logo%2C%20professional%2C%20blue%20and%20gold%2C%20isolated%20on%20white%20background%2C%20centered%20composition&width=100&height=100&seq=5&orientation=squarish" alt="企業ロゴ" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-medium text-sm">フィンテックソリューションズ</h3>
+<p class="text-xs text-gray-500">東京 · 週3日出社</p>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+<i class="ri-heart-line ri-lg"></i>
+</button>
+</div>
+<h2 class="font-medium mt-3">フィンテックアプリ開発エンジニア</h2>
+<p class="text-sm text-gray-600 mt-1">個人向け資産管理アプリの機能拡張。API連携やセキュリティに関する知識をお持ちの方。</p>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="skill-tag text-xs px-2 py-1 rounded-full">React Native</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">API開発</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">セキュリティ</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center space-x-2">
+<span class="text-sm font-medium text-primary">¥800,000 〜 ¥1,200,000</span>
+<span class="text-xs text-gray-500">/案件</span>
+</div>
+<span class="text-xs text-gray-500">1日前</span>
+</div>
+</div>
+</div>
+<!-- おすすめスキル提供者 -->
+<div class="mt-6 px-4">
+<h2 class="font-medium mb-3">おすすめのスキル提供者</h2>
+<div class="flex overflow-x-auto space-x-3 pb-4 -mx-4 px-4">
+<!-- スキル提供者1 -->
+<div class="flex-shrink-0 w-36 bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden cursor-pointer">
+<div class="h-24 bg-gray-100 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20Japanese%20male%20developer%20working%20on%20computer%2C%20from%20above%2C%20focused%20expression%2C%20modern%20office%20setting%2C%20soft%20natural%20lighting&width=150&height=100&seq=6&orientation=landscape" alt="プロフィール背景" class="w-full h-full object-cover">
+</div>
+<div class="relative px-3 pb-3">
+<div class="absolute -top-8 left-3 w-16 h-16 rounded-full border-2 border-white bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20Japanese%20male%20in%20his%2030s%2C%20neutral%20expression%2C%20business%20casual%20attire%2C%20clean%20background%2C%20high%20quality%20portrait&width=100&height=100&seq=7&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+<div class="mt-10">
+<h3 class="font-medium text-sm">佐藤 健太</h3>
+<p class="text-xs text-gray-500 mt-1">フロントエンドエンジニア</p>
+<div class="flex flex-wrap gap-1 mt-2">
+<span class="skill-tag text-xs px-1.5 py-0.5 rounded-full">React</span>
+<span class="skill-tag text-xs px-1.5 py-0.5 rounded-full">Next.js</span>
+</div>
+</div>
+</div>
+</div>
+<!-- スキル提供者2 -->
+<div class="flex-shrink-0 w-36 bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden cursor-pointer">
+<div class="h-24 bg-gray-100 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20Japanese%20female%20designer%20working%20on%20tablet%2C%20creative%20workspace%2C%20design%20sketches%20visible%2C%20soft%20natural%20lighting&width=150&height=100&seq=8&orientation=landscape" alt="プロフィール背景" class="w-full h-full object-cover">
+</div>
+<div class="relative px-3 pb-3">
+<div class="absolute -top-8 left-3 w-16 h-16 rounded-full border-2 border-white bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20Japanese%20female%20in%20her%2020s%2C%20friendly%20smile%2C%20casual%20creative%20attire%2C%20clean%20background%2C%20high%20quality%20portrait&width=100&height=100&seq=9&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+<div class="mt-10">
+<h3 class="font-medium text-sm">田中 美咲</h3>
+<p class="text-xs text-gray-500 mt-1">UIデザイナー</p>
+<div class="flex flex-wrap gap-1 mt-2">
+<span class="skill-tag text-xs px-1.5 py-0.5 rounded-full">Figma</span>
+<span class="skill-tag text-xs px-1.5 py-0.5 rounded-full">UI/UX</span>
+</div>
+</div>
+</div>
+</div>
+<!-- スキル提供者3 -->
+<div class="flex-shrink-0 w-36 bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden cursor-pointer">
+<div class="h-24 bg-gray-100 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20Japanese%20male%20marketing%20specialist%20analyzing%20data%20on%20laptop%2C%20modern%20coffee%20shop%20setting%2C%20focused%20expression&width=150&height=100&seq=10&orientation=landscape" alt="プロフィール背景" class="w-full h-full object-cover">
+</div>
+<div class="relative px-3 pb-3">
+<div class="absolute -top-8 left-3 w-16 h-16 rounded-full border-2 border-white bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20Japanese%20male%20in%20his%2040s%2C%20confident%20expression%2C%20business%20attire%2C%20clean%20background%2C%20high%20quality%20portrait&width=100&height=100&seq=11&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+<div class="mt-10">
+<h3 class="font-medium text-sm">鈴木 大輔</h3>
+<p class="text-xs text-gray-500 mt-1">マーケター</p>
+<div class="flex flex-wrap gap-1 mt-2">
+<span class="skill-tag text-xs px-1.5 py-0.5 rounded-full">SEO</span>
+<span class="skill-tag text-xs px-1.5 py-0.5 rounded-full">広告運用</span>
+</div>
+</div>
+</div>
+</div>
+<!-- スキル提供者4 -->
+<div class="flex-shrink-0 w-36 bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden cursor-pointer">
+<div class="h-24 bg-gray-100 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20Japanese%20female%20content%20creator%20with%20camera%2C%20creative%20studio%20setting%2C%20artistic%20environment%2C%20soft%20lighting&width=150&height=100&seq=12&orientation=landscape" alt="プロフィール背景" class="w-full h-full object-cover">
+</div>
+<div class="relative px-3 pb-3">
+<div class="absolute -top-8 left-3 w-16 h-16 rounded-full border-2 border-white bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20Japanese%20female%20in%20her%2030s%2C%20artistic%20style%2C%20creative%20casual%20attire%2C%20clean%20background%2C%20high%20quality%20portrait&width=100&height=100&seq=13&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+<div class="mt-10">
+<h3 class="font-medium text-sm">山田 恵子</h3>
+<p class="text-xs text-gray-500 mt-1">動画クリエイター</p>
+<div class="flex flex-wrap gap-1 mt-2">
+<span class="skill-tag text-xs px-1.5 py-0.5 rounded-full">動画編集</span>
+<span class="skill-tag text-xs px-1.5 py-0.5 rounded-full">After Effects</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- 投稿ボタン -->
+<div class="fixed bottom-20 right-4 z-40">
+<button id="addButton" class="w-14 h-14 rounded-full bg-primary text-white shadow-lg flex items-center justify-center cursor-pointer">
+<i class="ri-add-fill ri-xl"></i>
+</button>
+</div>
+<div id="postModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+<div class="bg-white rounded-lg w-[320px] p-6 mx-4">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-medium">新規投稿</h3>
+<button id="closeModal" class="w-8 h-8 flex items-center justify-center text-gray-500">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<div class="space-y-4">
+<button id="postProject" class="w-full flex items-center space-x-3 bg-gray-50 hover:bg-gray-100 p-4 rounded-lg transition-colors">
+<div class="w-10 h-10 rounded-full bg-primary bg-opacity-10 flex items-center justify-center">
+<i class="ri-briefcase-line ri-lg text-primary"></i>
+</div>
+<div class="text-left">
+<h4 class="font-medium">案件を投稿する</h4>
+<p class="text-sm text-gray-500">仕事や案件の募集を投稿</p>
+</div>
+</button>
+<button id="postSkill" class="w-full flex items-center space-x-3 bg-gray-50 hover:bg-gray-100 p-4 rounded-lg transition-colors">
+<div class="w-10 h-10 rounded-full bg-primary bg-opacity-10 flex items-center justify-center">
+<i class="ri-user-star-line ri-lg text-primary"></i>
+</div>
+<div class="text-left">
+<h4 class="font-medium">スキルを登録する</h4>
+<p class="text-sm text-gray-500">あなたのスキルをアピール</p>
+</div>
+</button>
+</div>
+</div>
+</div>
+<!-- ボトムナビゲーション -->
+<nav class="bg-white shadow-lg fixed bottom-0 left-0 w-full z-50 border-t border-gray-200">
+<div class="grid grid-cols-5 h-16">
+<a href="https://readdy.ai/home/1ba021c7-5f2f-42bb-8777-a83709ae9824/07604b45-1b3c-48ef-aa63-99fc6056b892" data-readdy="true" class="flex flex-col items-center justify-center text-primary cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-home-5-fill ri-lg"></i>
+</div>
+<span class="text-xs mt-1">ホーム</span>
+</a>
+<a href="https://readdy.ai/home/1ba021c7-5f2f-42bb-8777-a83709ae9824/fa00f9ac-8007-428b-8fdf-2b986b92e5d6" data-readdy="true" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-search-line ri-lg"></i>
+</div>
+<span class="text-xs mt-1">検索</span>
+</a>
+<a href="#" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-user-search-line ri-lg"></i>
+</div>
+<span class="text-xs mt-1">スキル</span>
+</a>
+<a href="https://readdy.ai/home/1ba021c7-5f2f-42bb-8777-a83709ae9824/02ffeaec-8a7f-425c-b6c3-07b1caa316d5" data-readdy="true" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-message-3-line ri-lg"></i>
+</div>
+<span class="text-xs mt-1">メッセージ</span>
+</a>
+<a href="#" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-user-line ri-lg"></i>
+</div>
+<span class="text-xs mt-1">プロフィール</span>
+</a>
+</div>
+</nav>
+<script id="tabSwitcher">
+document.addEventListener('DOMContentLoaded', function() {
+const tabs = document.querySelectorAll('.flex.border-b.border-gray-200 button');
+tabs.forEach(tab => {
+tab.addEventListener('click', function() {
+// Remove active class from all tabs
+tabs.forEach(t => {
+t.classList.remove('tab-active');
+t.classList.add('text-gray-500');
+});
+// Add active class to clicked tab
+this.classList.add('tab-active');
+this.classList.remove('text-gray-500');
+});
+});
+});
+</script>
+<script id="favoriteToggle">
+document.addEventListener('DOMContentLoaded', function() {
+const favoriteButtons = document.querySelectorAll('.w-8.h-8.flex.items-center.justify-center');
+favoriteButtons.forEach(button => {
+button.addEventListener('click', function(e) {
+e.stopPropagation();
+const icon = this.querySelector('i');
+if (icon.classList.contains('ri-heart-line')) {
+icon.classList.remove('ri-heart-line');
+icon.classList.add('ri-heart-fill');
+this.classList.remove('text-gray-400');
+this.classList.add('text-primary');
+} else {
+icon.classList.remove('ri-heart-fill');
+icon.classList.add('ri-heart-line');
+this.classList.remove('text-primary');
+this.classList.add('text-gray-400');
+}
+});
+});
+});
+</script>
+<script id="modalHandler">
+document.addEventListener('DOMContentLoaded', function() {
+const addButton = document.getElementById('addButton');
+const postModal = document.getElementById('postModal');
+const closeModal = document.getElementById('closeModal');
+const postProject = document.getElementById('postProject');
+const postSkill = document.getElementById('postSkill');
+function toggleModal() {
+postModal.classList.toggle('hidden');
+}
+addButton.addEventListener('click', toggleModal);
+closeModal.addEventListener('click', toggleModal);
+postModal.addEventListener('click', function(e) {
+if (e.target === this) {
+toggleModal();
+}
+});
+postProject.addEventListener('click', function() {
+console.log('Navigate to project post form');
+toggleModal();
+});
+postSkill.addEventListener('click', function() {
+console.log('Navigate to skill registration form');
+toggleModal();
+});
+});
+</script>
+<script id="navigationHandler">
+document.addEventListener('DOMContentLoaded', function() {
+const navItems = document.querySelectorAll('nav.fixed.bottom-0 a');
+navItems.forEach(item => {
+item.addEventListener('click', function(e) {
+e.preventDefault();
+// Remove active class from all items
+navItems.forEach(navItem => {
+navItem.classList.remove('text-primary');
+navItem.classList.add('text-gray-500');
+const icon = navItem.querySelector('i');
+if (icon.classList.contains('ri-home-5-fill')) {
+icon.classList.remove('ri-home-5-fill');
+icon.classList.add('ri-home-5-line');
+} else if (icon.classList.contains('ri-search-fill')) {
+icon.classList.remove('ri-search-fill');
+icon.classList.add('ri-search-line');
+} else if (icon.classList.contains('ri-user-search-fill')) {
+icon.classList.remove('ri-user-search-fill');
+icon.classList.add('ri-user-search-line');
+} else if (icon.classList.contains('ri-message-3-fill')) {
+icon.classList.remove('ri-message-3-fill');
+icon.classList.add('ri-message-3-line');
+} else if (icon.classList.contains('ri-user-fill')) {
+icon.classList.remove('ri-user-fill');
+icon.classList.add('ri-user-line');
+}
+});
+// Add active class to clicked item
+this.classList.remove('text-gray-500');
+this.classList.add('text-primary');
+const icon = this.querySelector('i');
+if (icon.classList.contains('ri-home-5-line')) {
+icon.classList.remove('ri-home-5-line');
+icon.classList.add('ri-home-5-fill');
+} else if (icon.classList.contains('ri-search-line')) {
+icon.classList.remove('ri-search-line');
+icon.classList.add('ri-search-fill');
+} else if (icon.classList.contains('ri-user-search-line')) {
+icon.classList.remove('ri-user-search-line');
+icon.classList.add('ri-user-search-fill');
+} else if (icon.classList.contains('ri-message-3-line')) {
+icon.classList.remove('ri-message-3-line');
+icon.classList.add('ri-message-3-fill');
+} else if (icon.classList.contains('ri-user-line')) {
+icon.classList.remove('ri-user-line');
+icon.classList.add('ri-user-fill');
+}
+});
+});
+});
+</script>
+
+<!-- ボトムナビゲーション -->
+<nav class="bg-white shadow-lg fixed bottom-0 left-0 w-full z-50 border-t border-gray-200">
+  <div class="grid grid-cols-5 h-16 text-xs">
+    <a href="/home.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-home-5-line ri-lg"></i>
+      </div>
+      <span class="mt-1">ホーム</span>
+    </a>
+    <a href="/search.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-search-line ri-lg"></i>
+      </div>
+      <span class="mt-1">検索</span>
+    </a>
+    <a href="/skills.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-search-line ri-lg"></i>
+      </div>
+      <span class="mt-1">スキル</span>
+    </a>
+    <a href="/messages.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-message-3-line ri-lg"></i>
+      </div>
+      <span class="mt-1">メッセージ</span>
+    </a>
+    <a href="/profile.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-line ri-lg"></i>
+      </div>
+      <span class="mt-1">プロフィール</span>
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>

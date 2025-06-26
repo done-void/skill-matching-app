@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>検索 - スキルマッチング</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#F59E0B'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Noto Sans JP', sans-serif;
+background-color: #FAFAFA;
+}
+.tab-active {
+color: #4F46E5;
+border-bottom: 2px solid #4F46E5;
+}
+.skill-tag {
+background-color: rgba(79, 70, 229, 0.1);
+color: #4F46E5;
+}
+.search-history-item {
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+</style>
+</head>
+<body class="bg-white">
+<!-- ナビゲーションバー -->
+<nav class="bg-white shadow-md fixed top-0 left-0 w-full z-50 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center">
+<h1 class="text-xl font-['Pacifico'] text-primary">logo</h1>
+</div>
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 flex items-center justify-center relative cursor-pointer">
+<i class="ri-notification-3-line ri-lg"></i>
+<span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+</div>
+</div>
+</nav>
+<!-- メインコンテンツ -->
+<main class="pt-16 pb-20">
+<!-- 検索バー -->
+<div class="px-4 py-3 bg-white sticky top-16 z-40 border-b border-gray-100">
+<div class="relative">
+<input type="text" id="searchInput" placeholder="キーワードで検索" class="w-full bg-gray-50 rounded-full py-2.5 pl-10 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 flex items-center justify-center">
+<i class="ri-search-line ri-lg"></i>
+</div>
+<button id="filterButton" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-7 h-7 flex items-center justify-center cursor-pointer">
+<i class="ri-equalizer-line ri-lg"></i>
+</button>
+</div>
+</div>
+<!-- 検索履歴 -->
+<div id="searchHistory" class="px-4 py-3 bg-white border-b border-gray-100">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-sm font-medium">最近の検索</h3>
+<button id="clearHistory" class="text-xs text-primary cursor-pointer">すべて削除</button>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+<span class="search-history-item">Webデザイナー</span>
+<button class="ml-1.5 text-gray-400 w-4 h-4 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</button>
+</div>
+<div class="flex items-center bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+<span class="search-history-item">React Native</span>
+<button class="ml-1.5 text-gray-400 w-4 h-4 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</button>
+</div>
+<div class="flex items-center bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+<span class="search-history-item">UI/UXデザイン</span>
+<button class="ml-1.5 text-gray-400 w-4 h-4 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</button>
+</div>
+<div class="flex items-center bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+<span class="search-history-item">動画編集</span>
+<button class="ml-1.5 text-gray-400 w-4 h-4 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- タブ切り替え -->
+<div class="flex border-b border-gray-200 px-4 bg-white sticky top-[106px] z-30">
+<button class="py-3 px-4 text-sm font-medium tab-active">案件</button>
+<button class="py-3 px-4 text-sm font-medium text-gray-500">スキル提供者</button>
+</div>
+<!-- フィルター -->
+<div class="px-4 py-3 bg-white border-b border-gray-100 overflow-x-auto whitespace-nowrap">
+<div class="flex items-center space-x-2">
+<button class="flex items-center space-x-1 bg-primary text-white rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">
+<span>すべて</span>
+</button>
+<button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">
+<span>エンジニア</span>
+</button>
+<button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">
+<span>デザイン</span>
+</button>
+<button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">
+<span>マーケティング</span>
+</button>
+<button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">
+<span>ライティング</span>
+</button>
+<button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">
+<span>動画・写真</span>
+</button>
+</div>
+</div>
+<!-- 検索結果 -->
+<div class="px-4 space-y-4 mt-2">
+<div class="flex items-center justify-between py-2">
+<h2 class="text-sm font-medium">検索結果: 28件</h2>
+<button class="flex items-center space-x-1 text-xs text-gray-500 cursor-pointer">
+<i class="ri-sort-desc"></i>
+<span>新着順</span>
+</button>
+</div>
+<!-- 案件カード1 -->
+<a href="https://readdy.ai/home/1ba021c7-5f2f-42bb-8777-a83709ae9824/28ddb03c-607e-4b30-a9a2-2a8fe2641411" data-readdy="true" class="block">
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=minimal%2520tech%2520company%2520logo%252C%2520professional%252C%2520clean%2520design%252C%2520blue%2520and%2520white%252C%2520isolated%2520on%2520white%2520background%252C%2520centered%2520composition&width=100&height=100&seq=1&orientation=squarish" alt="企業ロゴ" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-medium text-sm">株式会社テックイノベーション</h3>
+<p class="text-xs text-gray-500">東京 · リモート可</p>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+<i class="ri-heart-line ri-lg"></i>
+</button>
+</div>
+<h2 class="font-medium mt-3">Webアプリケーション開発エンジニア募集</h2>
+<p class="text-sm text-gray-600 mt-1">Next.jsとFirebaseを使用したSPAの開発。UI/UXを重視したモダンなアプリケーション構築経験者歓迎。</p>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="skill-tag text-xs px-2 py-1 rounded-full">Next.js</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">Firebase</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">React</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">TypeScript</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center space-x-2">
+<span class="text-sm font-medium text-primary">¥80,000 〜 ¥120,000</span>
+<span class="text-xs text-gray-500">/月</span>
+</div>
+<span class="text-xs text-gray-500">2日前</span>
+</div>
+</div>
+</a>
+<!-- 案件カード2 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=minimal%2520design%2520agency%2520logo%252C%2520creative%252C%2520modern%252C%2520orange%2520and%2520black%252C%2520isolated%2520on%2520white%2520background%252C%2520centered%2520composition&width=100&height=100&seq=2&orientation=squarish" alt="企業ロゴ" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-medium text-sm">デザインスタジオ クリエイト</h3>
+<p class="text-xs text-gray-500">大阪 · 週2日出社</p>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+<i class="ri-heart-line ri-lg"></i>
+</button>
+</div>
+<h2 class="font-medium mt-3">UIデザイナー募集（Figma経験者優遇）</h2>
+<p class="text-sm text-gray-600 mt-1">当社クライアント向けWebサイトのUI設計・デザイン制作。モバイルファーストの考え方ができる方。</p>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="skill-tag text-xs px-2 py-1 rounded-full">Figma</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">UI/UX</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">Webデザイン</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center space-x-2">
+<span class="text-sm font-medium text-primary">¥5,000 〜 ¥8,000</span>
+<span class="text-xs text-gray-500">/時間</span>
+</div>
+<span class="text-xs text-gray-500">4日前</span>
+</div>
+</div>
+<!-- 案件カード3 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=minimal%2520marketing%2520agency%2520logo%252C%2520professional%252C%2520green%2520and%2520gray%252C%2520isolated%2520on%2520white%2520background%252C%2520centered%2520composition&width=100&height=100&seq=3&orientation=squarish" alt="企業ロゴ" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-medium text-sm">グロースマーケティング株式会社</h3>
+<p class="text-xs text-gray-500">福岡 · フルリモート</p>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-primary cursor-pointer">
+<i class="ri-heart-fill ri-lg"></i>
+</button>
+</div>
+<h2 class="font-medium mt-3">SNSマーケティングスペシャリスト募集</h2>
+<p class="text-sm text-gray-600 mt-1">Instagram、TikTokを中心としたSNS運用代行。コンテンツ企画から分析まで一貫して担当いただける方。</p>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="skill-tag text-xs px-2 py-1 rounded-full">SNSマーケティング</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">コンテンツ制作</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">データ分析</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center space-x-2">
+<span class="text-sm font-medium text-primary">¥150,000 〜 ¥250,000</span>
+<span class="text-xs text-gray-500">/月</span>
+</div>
+<span class="text-xs text-gray-500">1週間前</span>
+</div>
+</div>
+<!-- 案件カード4 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=minimal%2520education%2520company%2520logo%252C%2520professional%252C%2520purple%2520and%2520white%252C%2520isolated%2520on%2520white%2520background%252C%2520centered%2520composition&width=100&height=100&seq=4&orientation=squarish" alt="企業ロゴ" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-medium text-sm">エデュテック・ラーニング</h3>
+<p class="text-xs text-gray-500">名古屋 · ハイブリッド</p>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+<i class="ri-heart-line ri-lg"></i>
+</button>
+</div>
+<h2 class="font-medium mt-3">オンライン教育コンテンツ制作者募集</h2>
+<p class="text-sm text-gray-600 mt-1">プログラミング学習教材の制作。わかりやすい解説と実践的な課題設計ができる方。特にPython、JavaScriptの知見がある方歓迎。</p>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="skill-tag text-xs px-2 py-1 rounded-full">教育コンテンツ</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">Python</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">JavaScript</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center space-x-2">
+<span class="text-sm font-medium text-primary">¥50,000 〜 ¥70,000</span>
+<span class="text-xs text-gray-500">/案件</span>
+</div>
+<span class="text-xs text-gray-500">3日前</span>
+</div>
+</div>
+<!-- 案件カード5 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=minimal%2520finance%2520company%2520logo%252C%2520professional%252C%2520blue%2520and%2520gold%252C%2520isolated%2520on%2520white%2520background%252C%2520centered%2520composition&width=100&height=100&seq=5&orientation=squarish" alt="企業ロゴ" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="font-medium text-sm">フィンテックソリューションズ</h3>
+<p class="text-xs text-gray-500">東京 · 週3日出社</p>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+<i class="ri-heart-line ri-lg"></i>
+</button>
+</div>
+<h2 class="font-medium mt-3">フィンテックアプリ開発エンジニア</h2>
+<p class="text-sm text-gray-600 mt-1">個人向け資産管理アプリの機能拡張。API連携やセキュリティに関する知識をお持ちの方。</p>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="skill-tag text-xs px-2 py-1 rounded-full">React Native</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">API開発</span>
+<span class="skill-tag text-xs px-2 py-1 rounded-full">セキュリティ</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center space-x-2">
+<span class="text-sm font-medium text-primary">¥800,000 〜 ¥1,200,000</span>
+<span class="text-xs text-gray-500">/案件</span>
+</div>
+<span class="text-xs text-gray-500">1日前</span>
+</div>
+</div>
+</div>
+</main>
+<!-- フィルターモーダル -->
+<div id="filterModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+<div class="bg-white rounded-t-xl absolute bottom-0 left-0 right-0 max-h-[90vh] overflow-y-auto">
+<div class="sticky top-0 bg-white border-b border-gray-100 px-4 py-3 flex justify-between items-center">
+<h3 class="font-medium">詳細検索</h3>
+<button id="closeFilterModal" class="w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<div class="p-4 space-y-6">
+<!-- スキル -->
+<div>
+<h4 class="font-medium mb-2">スキル</h4>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+<span>JavaScript</span>
+<button class="ml-1.5 text-gray-400 w-4 h-4 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</button>
+</div>
+<div class="flex items-center bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+<span>React</span>
+<button class="ml-1.5 text-gray-400 w-4 h-4 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</button>
+</div>
+<button class="flex items-center bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+<i class="ri-add-line mr-1"></i>
+<span>追加</span>
+</button>
+</div>
+</div>
+<!-- 報酬 -->
+<div>
+<h4 class="font-medium mb-2">報酬</h4>
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<span class="text-sm">最低報酬</span>
+<div class="relative">
+<input type="text" placeholder="例: 5000" class="w-32 bg-gray-50 rounded px-3 py-1.5 text-sm border-none focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
+<span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">円〜</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm">最高報酬</span>
+<div class="relative">
+<input type="text" placeholder="例: 50000" class="w-32 bg-gray-50 rounded px-3 py-1.5 text-sm border-none focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
+<span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">円</span>
+</div>
+</div>
+<div class="flex items-center space-x-2 mt-3">
+<button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">時給</button>
+<button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">日給</button>
+<button class="bg-primary text-white rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">月給</button>
+<button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">案件</button>
+</div>
+</div>
+</div>
+<!-- 勤務地 -->
+<div>
+<h4 class="font-medium mb-2">勤務地</h4>
+<div class="flex flex-wrap gap-2">
+<button class="bg-primary text-white rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">リモート可</button>
+<button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">東京</button>
+<button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">大阪</button>
+<button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">名古屋</button>
+<button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">福岡</button>
+<button class="flex items-center bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+<i class="ri-add-line mr-1"></i>
+<span>その他</span>
+</button>
+</div>
+</div>
+<!-- 勤務形態 -->
+<div>
+<h4 class="font-medium mb-2">勤務形態</h4>
+<div class="flex flex-wrap gap-2">
+<button class="bg-primary text-white rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">フルリモート</button>
+<button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">週1出社</button>
+<button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">週2〜3出社</button>
+<button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">常駐</button>
+</div>
+</div>
+</div>
+<div class="sticky bottom-0 bg-white border-t border-gray-100 p-4 flex space-x-3">
+<button id="resetFilter" class="flex-1 py-2.5 border border-gray-300 rounded-lg text-sm font-medium cursor-pointer !rounded-button">リセット</button>
+<button id="applyFilter" class="flex-1 py-2.5 bg-primary text-white rounded-lg text-sm font-medium cursor-pointer !rounded-button">適用する</button>
+</div>
+</div>
+</div>
+<!-- 投稿ボタン -->
+<div class="fixed bottom-20 right-4 z-40">
+<button id="addButton" class="w-14 h-14 rounded-full bg-primary text-white shadow-lg flex items-center justify-center cursor-pointer">
+<i class="ri-add-fill ri-xl"></i>
+</button>
+</div>
+<!-- 投稿モーダル -->
+<div id="postModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+<div class="bg-white rounded-lg w-[320px] p-6 mx-4">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-medium">新規投稿</h3>
+<button id="closeModal" class="w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<div class="space-y-4">
+<button id="postProject" class="w-full flex items-center space-x-3 bg-gray-50 hover:bg-gray-100 p-4 rounded-lg transition-colors cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-primary bg-opacity-10 flex items-center justify-center">
+<i class="ri-briefcase-line ri-lg text-primary"></i>
+</div>
+<div class="text-left">
+<h4 class="font-medium">案件を投稿する</h4>
+<p class="text-sm text-gray-500">仕事や案件の募集を投稿</p>
+</div>
+</button>
+<button id="postSkill" class="w-full flex items-center space-x-3 bg-gray-50 hover:bg-gray-100 p-4 rounded-lg transition-colors cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-primary bg-opacity-10 flex items-center justify-center">
+<i class="ri-user-star-line ri-lg text-primary"></i>
+</div>
+<div class="text-left">
+<h4 class="font-medium">スキルを登録する</h4>
+<p class="text-sm text-gray-500">あなたのスキルをアピール</p>
+</div>
+</button>
+</div>
+</div>
+</div>
+<!-- ボトムナビゲーション -->
+<nav class="bg-white shadow-lg fixed bottom-0 left-0 w-full z-50 border-t border-gray-200">
+<div class="grid grid-cols-5 h-16">
+<a href="https://readdy.ai/home/1ba021c7-5f2f-42bb-8777-a83709ae9824/28ddb03c-607e-4b30-a9a2-2a8fe2641411" data-readdy="true" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-home-5-line ri-lg"></i>
+</div>
+<span class="text-xs mt-1">ホーム</span>
+</a>
+<a href="#" class="flex flex-col items-center justify-center text-primary cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-search-fill ri-lg"></i>
+</div>
+<span class="text-xs mt-1">検索</span>
+</a>
+<a href="https://readdy.ai/home/1ba021c7-5f2f-42bb-8777-a83709ae9824/b825de24-f23a-4084-8a75-d7940292845a" data-readdy="true" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-user-search-line ri-lg"></i>
+</div>
+<span class="text-xs mt-1">スキル</span>
+</a>
+<a href="#" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-message-3-line ri-lg"></i>
+</div>
+<span class="text-xs mt-1">メッセージ</span>
+</a>
+<a href="#" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-user-line ri-lg"></i>
+</div>
+<span class="text-xs mt-1">プロフィール</span>
+</a>
+</div>
+</nav>
+<script id="tabSwitcher">
+document.addEventListener('DOMContentLoaded', function() {
+const tabs = document.querySelectorAll('.flex.border-b.border-gray-200 button');
+tabs.forEach(tab => {
+tab.addEventListener('click', function() {
+// Remove active class from all tabs
+tabs.forEach(t => {
+t.classList.remove('tab-active');
+t.classList.add('text-gray-500');
+});
+// Add active class to clicked tab
+this.classList.add('tab-active');
+this.classList.remove('text-gray-500');
+});
+});
+});
+</script>
+<script id="favoriteToggle">
+document.addEventListener('DOMContentLoaded', function() {
+const favoriteButtons = document.querySelectorAll('.w-8.h-8.flex.items-center.justify-center');
+favoriteButtons.forEach(button => {
+button.addEventListener('click', function(e) {
+e.stopPropagation();
+const icon = this.querySelector('i');
+if (icon.classList.contains('ri-heart-line')) {
+icon.classList.remove('ri-heart-line');
+icon.classList.add('ri-heart-fill');
+this.classList.remove('text-gray-400');
+this.classList.add('text-primary');
+} else {
+icon.classList.remove('ri-heart-fill');
+icon.classList.add('ri-heart-line');
+this.classList.remove('text-primary');
+this.classList.add('text-gray-400');
+}
+});
+});
+});
+</script>
+<script id="modalHandler">
+document.addEventListener('DOMContentLoaded', function() {
+const addButton = document.getElementById('addButton');
+const postModal = document.getElementById('postModal');
+const closeModal = document.getElementById('closeModal');
+const postProject = document.getElementById('postProject');
+const postSkill = document.getElementById('postSkill');
+function toggleModal() {
+postModal.classList.toggle('hidden');
+}
+addButton.addEventListener('click', toggleModal);
+closeModal.addEventListener('click', toggleModal);
+postModal.addEventListener('click', function(e) {
+if (e.target === this) {
+toggleModal();
+}
+});
+postProject.addEventListener('click', function() {
+console.log('Navigate to project post form');
+toggleModal();
+});
+postSkill.addEventListener('click', function() {
+console.log('Navigate to skill registration form');
+toggleModal();
+});
+});
+</script>
+<script id="filterModalHandler">
+document.addEventListener('DOMContentLoaded', function() {
+const filterButton = document.getElementById('filterButton');
+const filterModal = document.getElementById('filterModal');
+const closeFilterModal = document.getElementById('closeFilterModal');
+const applyFilter = document.getElementById('applyFilter');
+const resetFilter = document.getElementById('resetFilter');
+function toggleFilterModal() {
+filterModal.classList.toggle('hidden');
+}
+filterButton.addEventListener('click', toggleFilterModal);
+closeFilterModal.addEventListener('click', toggleFilterModal);
+filterModal.addEventListener('click', function(e) {
+if (e.target === this) {
+toggleFilterModal();
+}
+});
+applyFilter.addEventListener('click', function() {
+console.log('Apply filter');
+toggleFilterModal();
+});
+resetFilter.addEventListener('click', function() {
+console.log('Reset filter');
+// Reset filter logic here
+});
+});
+</script>
+<script id="searchHistoryHandler">
+document.addEventListener('DOMContentLoaded', function() {
+const searchInput = document.getElementById('searchInput');
+const searchHistory = document.getElementById('searchHistory');
+const clearHistory = document.getElementById('clearHistory');
+const historyItems = document.querySelectorAll('.search-history-item');
+const removeButtons = document.querySelectorAll('.search-history-item + button');
+// Show/hide search history based on input focus
+searchInput.addEventListener('focus', function() {
+searchHistory.style.display = 'block';
+});
+searchInput.addEventListener('blur', function(e) {
+// Delay hiding to allow for clicks on history items
+setTimeout(() => {
+if (!searchHistory.contains(document.activeElement)) {
+searchHistory.style.display = 'none';
+}
+}, 200);
+});
+// Clear all history
+clearHistory.addEventListener('click', function(e) {
+e.stopPropagation();
+const historyItems = document.querySelectorAll('.flex.items-center.bg-gray-50.rounded-full');
+historyItems.forEach(item => {
+if (item.querySelector('.search-history-item')) {
+item.remove();
+}
+});
+});
+// Click on history item to search
+historyItems.forEach(item => {
+item.addEventListener('click', function() {
+searchInput.value = this.textContent.trim();
+searchHistory.style.display = 'none';
+});
+});
+// Remove individual history item
+removeButtons.forEach(button => {
+button.addEventListener('click', function(e) {
+e.stopPropagation();
+this.parentElement.remove();
+});
+});
+// Submit search on enter
+searchInput.addEventListener('keypress', function(e) {
+if (e.key === 'Enter') {
+console.log('Search for:', this.value);
+searchHistory.style.display = 'none';
+}
+});
+});
+</script>
+<script id="navigationHandler">
+document.addEventListener('DOMContentLoaded', function() {
+const navItems = document.querySelectorAll('nav.fixed.bottom-0 a');
+navItems.forEach(item => {
+item.addEventListener('click', function(e) {
+if (!this.getAttribute('href').startsWith('http')) {
+e.preventDefault();
+}
+// Remove active class from all items
+navItems.forEach(navItem => {
+navItem.classList.remove('text-primary');
+navItem.classList.add('text-gray-500');
+const icon = navItem.querySelector('i');
+if (icon.classList.contains('ri-home-5-fill')) {
+icon.classList.remove('ri-home-5-fill');
+icon.classList.add('ri-home-5-line');
+} else if (icon.classList.contains('ri-search-fill')) {
+icon.classList.remove('ri-search-fill');
+icon.classList.add('ri-search-line');
+} else if (icon.classList.contains('ri-user-search-fill')) {
+icon.classList.remove('ri-user-search-fill');
+icon.classList.add('ri-user-search-line');
+} else if (icon.classList.contains('ri-message-3-fill')) {
+icon.classList.remove('ri-message-3-fill');
+icon.classList.add('ri-message-3-line');
+} else if (icon.classList.contains('ri-user-fill')) {
+icon.classList.remove('ri-user-fill');
+icon.classList.add('ri-user-line');
+}
+});
+// Add active class to clicked item
+this.classList.remove('text-gray-500');
+this.classList.add('text-primary');
+const icon = this.querySelector('i');
+if (icon.classList.contains('ri-home-5-line')) {
+icon.classList.remove('ri-home-5-line');
+icon.classList.add('ri-home-5-fill');
+} else if (icon.classList.contains('ri-search-line')) {
+icon.classList.remove('ri-search-line');
+icon.classList.add('ri-search-fill');
+} else if (icon.classList.contains('ri-user-search-line')) {
+icon.classList.remove('ri-user-search-line');
+icon.classList.add('ri-user-search-fill');
+} else if (icon.classList.contains('ri-message-3-line')) {
+icon.classList.remove('ri-message-3-line');
+icon.classList.add('ri-message-3-fill');
+} else if (icon.classList.contains('ri-user-line')) {
+icon.classList.remove('ri-user-line');
+icon.classList.add('ri-user-fill');
+}
+});
+});
+});
+</script>
+
+<!-- ボトムナビゲーション -->
+<nav class="bg-white shadow-lg fixed bottom-0 left-0 w-full z-50 border-t border-gray-200">
+  <div class="grid grid-cols-5 h-16 text-xs">
+    <a href="/home.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-home-5-line ri-lg"></i>
+      </div>
+      <span class="mt-1">ホーム</span>
+    </a>
+    <a href="/search.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-search-line ri-lg"></i>
+      </div>
+      <span class="mt-1">検索</span>
+    </a>
+    <a href="/skills.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-search-line ri-lg"></i>
+      </div>
+      <span class="mt-1">スキル</span>
+    </a>
+    <a href="/messages.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-message-3-line ri-lg"></i>
+      </div>
+      <span class="mt-1">メッセージ</span>
+    </a>
+    <a href="/profile.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-line ri-lg"></i>
+      </div>
+      <span class="mt-1">プロフィール</span>
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>

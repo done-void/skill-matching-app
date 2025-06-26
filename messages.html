@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>メッセージ一覧</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#F59E0B'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Noto Sans JP', sans-serif;
+background-color: #FAFAFA;
+}
+.message-preview {
+display: -webkit-box;
+-webkit-line-clamp: 1;
+-webkit-box-orient: vertical;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+</style>
+</head>
+<body class="bg-white">
+<!-- ナビゲーションバー -->
+<nav class="bg-white shadow-md fixed top-0 left-0 w-full z-50 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center">
+<h1 class="text-xl font-['Pacifico'] text-primary">logo</h1>
+</div>
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 flex items-center justify-center relative cursor-pointer">
+<i class="ri-notification-3-line ri-lg"></i>
+<span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+</div>
+</div>
+</nav>
+<!-- メインコンテンツ -->
+<main class="pt-16 pb-20">
+<div class="px-4 py-3 flex items-center justify-between">
+<h2 class="text-lg font-medium">メッセージ</h2>
+<div class="flex items-center space-x-2">
+<button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+<span>すべて</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+</div>
+</div>
+<!-- メッセージリスト -->
+<div class="mt-2 space-y-1">
+<!-- メッセージ1 - 未読あり -->
+<div class="px-4 py-3 bg-white border-b border-gray-100 flex items-center cursor-pointer hover:bg-gray-50">
+<div class="relative mr-3">
+<div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Japanese%2520female%2520in%2520her%252020s%252C%2520friendly%2520smile%252C%2520casual%2520creative%2520attire%252C%2520clean%2520background%252C%2520high%2520quality%2520portrait&width=100&height=100&seq=101&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center">
+<h3 class="font-medium text-sm">田中 美咲</h3>
+<span class="text-xs text-gray-500">13:45</span>
+</div>
+<p class="text-sm text-gray-600 message-preview">デザイン案について、フィードバックありがとうございました。修正版を送りますので、確認お願いします。</p>
+</div>
+<div class="ml-2 flex flex-col items-end">
+<span class="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</span>
+</div>
+</div>
+<!-- メッセージ2 - 未読あり -->
+<div class="px-4 py-3 bg-white border-b border-gray-100 flex items-center cursor-pointer hover:bg-gray-50">
+<div class="relative mr-3">
+<div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Japanese%2520male%2520in%2520his%252030s%252C%2520neutral%2520expression%252C%2520business%2520casual%2520attire%252C%2520clean%2520background%252C%2520high%2520quality%2520portrait&width=100&height=100&seq=102&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center">
+<h3 class="font-medium text-sm">佐藤 健太</h3>
+<span class="text-xs text-gray-500">昨日</span>
+</div>
+<p class="text-sm text-gray-600 message-preview">プロジェクトの進捗状況を共有します。現在のところ予定通り進んでいます。</p>
+</div>
+<div class="ml-2 flex flex-col items-end">
+<span class="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">1</span>
+</div>
+</div>
+<!-- メッセージ3 -->
+<div class="px-4 py-3 bg-white border-b border-gray-100 flex items-center cursor-pointer hover:bg-gray-50">
+<div class="relative mr-3">
+<div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Japanese%2520male%2520in%2520his%252040s%252C%2520confident%2520expression%252C%2520business%2520attire%252C%2520clean%2520background%252C%2520high%2520quality%2520portrait&width=100&height=100&seq=103&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center">
+<h3 class="font-medium text-sm">鈴木 大輔</h3>
+<span class="text-xs text-gray-500">6月25日</span>
+</div>
+<p class="text-sm text-gray-500 message-preview">マーケティング戦略について相談したいことがあります。お時間ありますか？</p>
+</div>
+</div>
+<!-- メッセージ4 -->
+<div class="px-4 py-3 bg-white border-b border-gray-100 flex items-center cursor-pointer hover:bg-gray-50">
+<div class="relative mr-3">
+<div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Japanese%2520female%2520in%2520her%252030s%252C%2520artistic%2520style%252C%2520creative%2520casual%2520attire%252C%2520clean%2520background%252C%2520high%2520quality%2520portrait&width=100&height=100&seq=104&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center">
+<h3 class="font-medium text-sm">山田 恵子</h3>
+<span class="text-xs text-gray-500">6月23日</span>
+</div>
+<p class="text-sm text-gray-500 message-preview">動画編集の件、承知しました。来週の納期で問題ありません。</p>
+</div>
+</div>
+<!-- メッセージ5 -->
+<div class="px-4 py-3 bg-white border-b border-gray-100 flex items-center cursor-pointer hover:bg-gray-50">
+<div class="relative mr-3">
+<div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Japanese%2520male%2520in%2520his%252050s%252C%2520executive%2520look%252C%2520formal%2520business%2520attire%252C%2520clean%2520background%252C%2520high%2520quality%2520portrait&width=100&height=100&seq=105&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center">
+<h3 class="font-medium text-sm">中村 誠一</h3>
+<span class="text-xs text-gray-500">6月20日</span>
+</div>
+<p class="text-sm text-gray-500 message-preview">先日はミーティングお疲れ様でした。議事録を添付しますのでご確認ください。</p>
+</div>
+</div>
+<!-- メッセージ6 -->
+<div class="px-4 py-3 bg-white border-b border-gray-100 flex items-center cursor-pointer hover:bg-gray-50">
+<div class="relative mr-3">
+<div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Japanese%2520female%2520in%2520her%252040s%252C%2520professional%2520look%252C%2520business%2520attire%252C%2520clean%2520background%252C%2520high%2520quality%2520portrait&width=100&height=100&seq=106&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center">
+<h3 class="font-medium text-sm">高橋 由美</h3>
+<span class="text-xs text-gray-500">6月18日</span>
+</div>
+<p class="text-sm text-gray-500 message-preview">ウェブサイトのリニューアルについて、ご提案いただいた内容を検討しています。</p>
+</div>
+</div>
+<!-- メッセージ7 -->
+<div class="px-4 py-3 bg-white border-b border-gray-100 flex items-center cursor-pointer hover:bg-gray-50">
+<div class="relative mr-3">
+<div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Japanese%2520male%2520in%2520his%252020s%252C%2520tech%2520savvy%2520look%252C%2520casual%2520tech%2520attire%252C%2520clean%2520background%252C%2520high%2520quality%2520portrait&width=100&height=100&seq=107&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center">
+<h3 class="font-medium text-sm">伊藤 翔太</h3>
+<span class="text-xs text-gray-500">6月15日</span>
+</div>
+<p class="text-sm text-gray-500 message-preview">アプリ開発の進捗状況ですが、テスト段階に入りました。来週にはベータ版をリリースできそうです。</p>
+</div>
+</div>
+<!-- メッセージ8 -->
+<div class="px-4 py-3 bg-white border-b border-gray-100 flex items-center cursor-pointer hover:bg-gray-50">
+<div class="relative mr-3">
+<div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Japanese%2520female%2520in%2520her%252030s%252C%2520marketing%2520professional%252C%2520smart%2520casual%2520attire%252C%2520clean%2520background%252C%2520high%2520quality%2520portrait&width=100&height=100&seq=108&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center">
+<h3 class="font-medium text-sm">小林 明子</h3>
+<span class="text-xs text-gray-500">6月10日</span>
+</div>
+<p class="text-sm text-gray-500 message-preview">SNSマーケティングの提案書を作成しました。ご確認いただけますか？</p>
+</div>
+</div>
+<!-- メッセージ9 -->
+<div class="px-4 py-3 bg-white border-b border-gray-100 flex items-center cursor-pointer hover:bg-gray-50">
+<div class="relative mr-3">
+<div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Japanese%2520male%2520in%2520his%252030s%252C%2520finance%2520professional%252C%2520formal%2520attire%252C%2520clean%2520background%252C%2520high%2520quality%2520portrait&width=100&height=100&seq=109&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center">
+<h3 class="font-medium text-sm">渡辺 拓也</h3>
+<span class="text-xs text-gray-500">6月5日</span>
+</div>
+<p class="text-sm text-gray-500 message-preview">予算案について検討した結果、ご提案いただいた内容で進めたいと思います。</p>
+</div>
+</div>
+<!-- メッセージ10 -->
+<div class="px-4 py-3 bg-white border-b border-gray-100 flex items-center cursor-pointer hover:bg-gray-50">
+<div class="relative mr-3">
+<div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Japanese%2520female%2520in%2520her%252020s%252C%2520tech%2520professional%252C%2520casual%2520tech%2520attire%252C%2520clean%2520background%252C%2520high%2520quality%2520portrait&width=100&height=100&seq=110&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center">
+<h3 class="font-medium text-sm">木村 さくら</h3>
+<span class="text-xs text-gray-500">6月1日</span>
+</div>
+<p class="text-sm text-gray-500 message-preview">プログラミング講座の件、ご連絡ありがとうございます。日程調整いたしますので少々お待ちください。</p>
+</div>
+</div>
+</div>
+</main>
+<!-- 新規メッセージ作成ボタン -->
+<div class="fixed bottom-20 right-4 z-40">
+<button id="newMessageButton" class="w-14 h-14 rounded-full bg-primary text-white shadow-lg flex items-center justify-center cursor-pointer">
+<i class="ri-chat-new-line ri-xl"></i>
+</button>
+</div>
+<!-- ボトムナビゲーション -->
+<nav class="bg-white shadow-lg fixed bottom-0 left-0 w-full z-50 border-t border-gray-200">
+<div class="grid grid-cols-5 h-16">
+<a href="#" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-home-5-line ri-lg"></i>
+</div>
+<span class="text-xs mt-1">ホーム</span>
+</a>
+<a href="#" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-search-line ri-lg"></i>
+</div>
+<span class="text-xs mt-1">検索</span>
+</a>
+<a href="#" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-user-search-line ri-lg"></i>
+</div>
+<span class="text-xs mt-1">スキル</span>
+</a>
+<a href="https://readdy.ai/home/1ba021c7-5f2f-42bb-8777-a83709ae9824/28ddb03c-607e-4b30-a9a2-2a8fe2641411" data-readdy="true" class="flex flex-col items-center justify-center text-primary cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-message-3-fill ri-lg"></i>
+</div>
+<span class="text-xs mt-1">メッセージ</span>
+</a>
+<a href="https://readdy.ai/home/1ba021c7-5f2f-42bb-8777-a83709ae9824/9cc8f751-7a71-40d6-808b-d7a4aee67ba9" data-readdy="true" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-user-line ri-lg"></i>
+</div>
+<span class="text-xs mt-1">プロフィール</span>
+</a>
+</div>
+</nav>
+<!-- 新規メッセージモーダル -->
+<div id="newMessageModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+<div class="bg-white rounded-lg w-[320px] p-6 mx-4">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-medium">新規メッセージ</h3>
+<button id="closeMessageModal" class="w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<div class="mb-4">
+<label for="searchUser" class="block text-sm font-medium text-gray-700 mb-1">ユーザーを検索</label>
+<div class="relative">
+<input type="text" id="searchUser" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="名前を入力">
+<div class="absolute inset-y-0 right-0 flex items-center pr-3">
+<i class="ri-search-line text-gray-400"></i>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<h4 class="text-sm font-medium text-gray-700 mb-2">最近やり取りしたユーザー</h4>
+<div class="space-y-3 max-h-40 overflow-y-auto">
+<div class="flex items-center p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden mr-3">
+<img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Japanese%2520female%2520in%2520her%252020s%252C%2520friendly%2520smile%252C%2520casual%2520creative%2520attire%252C%2520clean%2520background%252C%2520high%2520quality%2520portrait&width=100&height=100&seq=101&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+<span class="text-sm">田中 美咲</span>
+</div>
+<div class="flex items-center p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden mr-3">
+<img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Japanese%2520male%2520in%2520his%252030s%252C%2520neutral%2520expression%252C%2520business%2520casual%2520attire%252C%2520clean%2520background%252C%2520high%2520quality%2520portrait&width=100&height=100&seq=102&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+<span class="text-sm">佐藤 健太</span>
+</div>
+<div class="flex items-center p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden mr-3">
+<img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Japanese%2520male%2520in%2520his%252040s%252C%2520confident%2520expression%252C%2520business%2520attire%252C%2520clean%2520background%252C%2520high%2520quality%2520portrait&width=100&height=100&seq=103&orientation=squarish" alt="プロフィール写真" class="w-full h-full object-cover">
+</div>
+<span class="text-sm">鈴木 大輔</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-primary text-white py-2 rounded-button font-medium">メッセージを作成</button>
+</div>
+</div>
+<script id="messageListHandler">
+document.addEventListener('DOMContentLoaded', function() {
+const messageItems = document.querySelectorAll('.px-4.py-3.bg-white.border-b.border-gray-100.flex.items-center.cursor-pointer');
+messageItems.forEach(item => {
+item.addEventListener('click', function() {
+// ここで個別の会話画面に遷移する処理を実装
+console.log('メッセージスレッドがクリックされました');
+// 実際のアプリでは、該当するメッセージスレッドの詳細ページに遷移する処理を記述
+});
+});
+});
+</script>
+<script id="newMessageModalHandler">
+document.addEventListener('DOMContentLoaded', function() {
+const newMessageButton = document.getElementById('newMessageButton');
+const newMessageModal = document.getElementById('newMessageModal');
+const closeMessageModal = document.getElementById('closeMessageModal');
+function toggleMessageModal() {
+newMessageModal.classList.toggle('hidden');
+}
+newMessageButton.addEventListener('click', toggleMessageModal);
+closeMessageModal.addEventListener('click', toggleMessageModal);
+newMessageModal.addEventListener('click', function(e) {
+if (e.target === this) {
+toggleMessageModal();
+}
+});
+});
+</script>
+<script id="navigationHandler">
+document.addEventListener('DOMContentLoaded', function() {
+const navItems = document.querySelectorAll('nav.fixed.bottom-0 a');
+navItems.forEach(item => {
+item.addEventListener('click', function(e) {
+if (!this.getAttribute('data-readdy')) {
+e.preventDefault();
+}
+// Remove active class from all items
+navItems.forEach(navItem => {
+navItem.classList.remove('text-primary');
+navItem.classList.add('text-gray-500');
+const icon = navItem.querySelector('i');
+if (icon.classList.contains('ri-home-5-fill')) {
+icon.classList.remove('ri-home-5-fill');
+icon.classList.add('ri-home-5-line');
+} else if (icon.classList.contains('ri-search-fill')) {
+icon.classList.remove('ri-search-fill');
+icon.classList.add('ri-search-line');
+} else if (icon.classList.contains('ri-user-search-fill')) {
+icon.classList.remove('ri-user-search-fill');
+icon.classList.add('ri-user-search-line');
+} else if (icon.classList.contains('ri-message-3-fill')) {
+icon.classList.remove('ri-message-3-fill');
+icon.classList.add('ri-message-3-line');
+} else if (icon.classList.contains('ri-user-fill')) {
+icon.classList.remove('ri-user-fill');
+icon.classList.add('ri-user-line');
+}
+});
+// Add active class to clicked item
+this.classList.remove('text-gray-500');
+this.classList.add('text-primary');
+const icon = this.querySelector('i');
+if (icon.classList.contains('ri-home-5-line')) {
+icon.classList.remove('ri-home-5-line');
+icon.classList.add('ri-home-5-fill');
+} else if (icon.classList.contains('ri-search-line')) {
+icon.classList.remove('ri-search-line');
+icon.classList.add('ri-search-fill');
+} else if (icon.classList.contains('ri-user-search-line')) {
+icon.classList.remove('ri-user-search-line');
+icon.classList.add('ri-user-search-fill');
+} else if (icon.classList.contains('ri-message-3-line')) {
+icon.classList.remove('ri-message-3-line');
+icon.classList.add('ri-message-3-fill');
+} else if (icon.classList.contains('ri-user-line')) {
+icon.classList.remove('ri-user-line');
+icon.classList.add('ri-user-fill');
+}
+});
+});
+});
+</script>
+
+<!-- ボトムナビゲーション -->
+<nav class="bg-white shadow-lg fixed bottom-0 left-0 w-full z-50 border-t border-gray-200">
+  <div class="grid grid-cols-5 h-16 text-xs">
+    <a href="/home.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-home-5-line ri-lg"></i>
+      </div>
+      <span class="mt-1">ホーム</span>
+    </a>
+    <a href="/search.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-search-line ri-lg"></i>
+      </div>
+      <span class="mt-1">検索</span>
+    </a>
+    <a href="/skills.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-search-line ri-lg"></i>
+      </div>
+      <span class="mt-1">スキル</span>
+    </a>
+    <a href="/messages.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-message-3-line ri-lg"></i>
+      </div>
+      <span class="mt-1">メッセージ</span>
+    </a>
+    <a href="/profile.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-line ri-lg"></i>
+      </div>
+      <span class="mt-1">プロフィール</span>
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>

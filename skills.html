@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スキル - スキルマッチング</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#F59E0B'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: #FAFAFA;
+}
+.skill-tag {
+  background-color: rgba(79, 70, 229, 0.1);
+  color: #4F46E5;
+  white-space: nowrap;
+}
+.category-item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rating-stars {
+  color: #F59E0B;
+}
+</style>
+</head>
+<body class="bg-white">
+<!-- ナビゲーションバー -->
+<nav class="bg-white shadow-md fixed top-0 left-0 w-full z-50 px-4 py-3 flex items-center justify-between">
+  <div class="flex items-center">
+    <h1 class="text-xl font-['Pacifico'] text-primary">logo</h1>
+  </div>
+  <div class="flex items-center space-x-3">
+    <div class="w-8 h-8 flex items-center justify-center relative cursor-pointer">
+      <i class="ri-notification-3-line ri-lg"></i>
+      <span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+    </div>
+  </div>
+</nav>
+
+<!-- メインコンテンツ -->
+<main class="pt-16 pb-20">
+  <!-- 検索バー -->
+  <div class="px-4 py-3 bg-white sticky top-16 z-40 border-b border-gray-100">
+    <div class="relative">
+      <input type="text" id="searchInput" placeholder="スキル・提供者を検索" class="w-full bg-gray-50 rounded-full py-2.5 pl-10 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
+      <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 flex items-center justify-center">
+        <i class="ri-search-line ri-lg"></i>
+      </div>
+      <button id="filterButton" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-7 h-7 flex items-center justify-center cursor-pointer">
+        <i class="ri-equalizer-line ri-lg"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- カテゴリーフィルター -->
+  <div class="px-4 py-3 bg-white border-b border-gray-100 overflow-x-auto whitespace-nowrap">
+    <div class="flex items-center space-x-2">
+      <button class="flex items-center space-x-1 bg-primary text-white rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">
+        <span>すべて</span>
+      </button>
+      <button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">
+        <span>エンジニア</span>
+      </button>
+      <button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">
+        <span>デザイン</span>
+      </button>
+      <button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">
+        <span>マーケティング</span>
+      </button>
+      <button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">
+        <span>ライティング</span>
+      </button>
+      <button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">
+        <span>動画・写真</span>
+      </button>
+      <button class="flex items-center space-x-1 bg-gray-100 rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">
+        <span>翻訳・語学</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- スキル提供者一覧 -->
+  <div class="px-4 space-y-4 mt-2">
+    <div class="flex items-center justify-between py-2">
+      <h2 class="text-sm font-medium">スキル提供者: 42名</h2>
+      <button class="flex items-center space-x-1 text-xs text-gray-500 cursor-pointer">
+        <i class="ri-sort-desc"></i>
+        <span>評価順</span>
+      </button>
+    </div>
+
+    <!-- スキル提供者カード1 -->
+    <a href="https://readdy.ai/home/1ba021c7-5f2f-42bb-8777-a83709ae9824/fa00f9ac-8007-428b-8fdf-2b986b92e5d6" data-readdy="true" class="block">
+      <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+        <div class="flex items-start">
+          <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+            <img src="https://readdy.ai/api/search-image?query=professional%2520portrait%2520of%2520a%2520Japanese%2520male%2520software%2520engineer%252C%2520mid-30s%252C%2520wearing%2520casual%2520business%2520attire%252C%2520friendly%2520smile%252C%2520clean%2520background%252C%2520high%2520quality%2520professional%2520headshot&width=200&height=200&seq=1&orientation=squarish" alt="プロフィール画像" class="w-full h-full object-cover">
+          </div>
+          <div class="ml-3 flex-1">
+            <div class="flex justify-between items-start">
+              <h3 class="font-medium">佐藤 健太</h3>
+              <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+                <i class="ri-heart-line ri-lg"></i>
+              </button>
+            </div>
+            <div class="flex items-center mt-1">
+              <div class="rating-stars flex items-center">
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-half-fill ri-xs"></i>
+              </div>
+              <span class="text-xs ml-1">4.5 (28件)</span>
+            </div>
+            <div class="flex flex-wrap gap-1 mt-2">
+              <span class="skill-tag text-xs px-2 py-0.5 rounded-full">React</span>
+              <span class="skill-tag text-xs px-2 py-0.5 rounded-full">TypeScript</span>
+              <span class="skill-tag text-xs px-2 py-0.5 rounded-full">Next.js</span>
+            </div>
+            <p class="text-xs text-gray-600 mt-2 line-clamp-2">フロントエンド開発を専門とするエンジニアです。モダンなWebアプリケーション開発の経験が豊富で、特にReactとTypeScriptを使った開発が得意です。</p>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- スキル提供者カード2 -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+      <div class="flex items-start">
+        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+          <img src="https://readdy.ai/api/search-image?query=professional%2520portrait%2520of%2520a%2520Japanese%2520female%2520UI%2520designer%252C%2520late-20s%252C%2520stylish%2520glasses%252C%2520creative%2520appearance%252C%2520clean%2520background%252C%2520high%2520quality%2520professional%2520headshot&width=200&height=200&seq=2&orientation=squarish" alt="プロフィール画像" class="w-full h-full object-cover">
+        </div>
+        <div class="ml-3 flex-1">
+          <div class="flex justify-between items-start">
+            <h3 class="font-medium">田中 美咲</h3>
+            <button class="w-8 h-8 flex items-center justify-center text-primary cursor-pointer">
+              <i class="ri-heart-fill ri-lg"></i>
+            </button>
+          </div>
+          <div class="flex items-center mt-1">
+            <div class="rating-stars flex items-center">
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+            </div>
+            <span class="text-xs ml-1">5.0 (42件)</span>
+          </div>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">UI/UXデザイン</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">Figma</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">Adobe XD</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 line-clamp-2">UI/UXデザイナーとして7年の経験があります。ユーザー中心設計を大切にし、使いやすく美しいインターフェースデザインを提供します。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- スキル提供者カード3 -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+      <div class="flex items-start">
+        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+          <img src="https://readdy.ai/api/search-image?query=professional%2520portrait%2520of%2520a%2520Japanese%2520male%2520marketing%2520specialist%252C%2520early-30s%252C%2520business%2520casual%2520attire%252C%2520confident%2520expression%252C%2520clean%2520background%252C%2520high%2520quality%2520professional%2520headshot&width=200&height=200&seq=3&orientation=squarish" alt="プロフィール画像" class="w-full h-full object-cover">
+        </div>
+        <div class="ml-3 flex-1">
+          <div class="flex justify-between items-start">
+            <h3 class="font-medium">山田 隆太</h3>
+            <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+              <i class="ri-heart-line ri-lg"></i>
+            </button>
+          </div>
+          <div class="flex items-center mt-1">
+            <div class="rating-stars flex items-center">
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-line ri-xs"></i>
+            </div>
+            <span class="text-xs ml-1">4.1 (17件)</span>
+          </div>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">デジタルマーケティング</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">SEO</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">SNS運用</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 line-clamp-2">デジタルマーケティングのスペシャリストとして、SEO対策からSNS運用まで幅広く対応します。データ分析に基づいた戦略立案が得意です。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- スキル提供者カード4 -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+      <div class="flex items-start">
+        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+          <img src="https://readdy.ai/api/search-image?query=professional%2520portrait%2520of%2520a%2520Japanese%2520female%2520content%2520writer%252C%2520mid-20s%252C%2520casual%2520stylish%2520outfit%252C%2520friendly%2520approachable%2520expression%252C%2520clean%2520background%252C%2520high%2520quality%2520professional%2520headshot&width=200&height=200&seq=4&orientation=squarish" alt="プロフィール画像" class="w-full h-full object-cover">
+        </div>
+        <div class="ml-3 flex-1">
+          <div class="flex justify-between items-start">
+            <h3 class="font-medium">鈴木 愛子</h3>
+            <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+              <i class="ri-heart-line ri-lg"></i>
+            </button>
+          </div>
+          <div class="flex items-center mt-1">
+            <div class="rating-stars flex items-center">
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-half-fill ri-xs"></i>
+            </div>
+            <span class="text-xs ml-1">4.6 (31件)</span>
+          </div>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">コンテンツライティング</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">SEOライティング</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">編集</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 line-clamp-2">プロのライターとして、SEOを意識した記事作成からブランドストーリー制作まで幅広く対応。読者の心に響く文章を心がけています。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- スキル提供者カード5 -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+      <div class="flex items-start">
+        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+          <img src="https://readdy.ai/api/search-image?query=professional%2520portrait%2520of%2520a%2520Japanese%2520male%2520video%2520editor%252C%2520late-20s%252C%2520creative%2520casual%2520style%252C%2520confident%2520expression%252C%2520clean%2520background%252C%2520high%2520quality%2520professional%2520headshot&width=200&height=200&seq=5&orientation=squarish" alt="プロフィール画像" class="w-full h-full object-cover">
+        </div>
+        <div class="ml-3 flex-1">
+          <div class="flex justify-between items-start">
+            <h3 class="font-medium">中村 大輔</h3>
+            <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+              <i class="ri-heart-line ri-lg"></i>
+            </button>
+          </div>
+          <div class="flex items-center mt-1">
+            <div class="rating-stars flex items-center">
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-line ri-xs"></i>
+            </div>
+            <span class="text-xs ml-1">4.2 (19件)</span>
+          </div>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">動画編集</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">After Effects</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">Premiere Pro</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 line-clamp-2">プロの動画編集者として、企業PVからYouTube動画まで幅広く対応。視聴者の心を掴む編集と演出が得意分野です。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- スキル提供者カード6 -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+      <div class="flex items-start">
+        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+          <img src="https://readdy.ai/api/search-image?query=professional%2520portrait%2520of%2520a%2520Japanese%2520female%2520translator%252C%2520early-30s%252C%2520smart%2520casual%2520attire%252C%2520glasses%252C%2520friendly%2520professional%2520expression%252C%2520clean%2520background%252C%2520high%2520quality%2520professional%2520headshot&width=200&height=200&seq=6&orientation=squarish" alt="プロフィール画像" class="w-full h-full object-cover">
+        </div>
+        <div class="ml-3 flex-1">
+          <div class="flex justify-between items-start">
+            <h3 class="font-medium">高橋 恵理</h3>
+            <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+              <i class="ri-heart-line ri-lg"></i>
+            </button>
+          </div>
+          <div class="flex items-center mt-1">
+            <div class="rating-stars flex items-center">
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-half-fill ri-xs"></i>
+            </div>
+            <span class="text-xs ml-1">4.7 (23件)</span>
+          </div>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">英日翻訳</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">日英翻訳</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">ローカライゼーション</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 line-clamp-2">プロの翻訳者として10年以上の経験があります。IT・テクノロジー分野の専門翻訳から一般的な文書まで幅広く対応可能です。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- スキル提供者カード7 -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+      <div class="flex items-start">
+        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+          <img src="https://readdy.ai/api/search-image?query=professional%2520portrait%2520of%2520a%2520Japanese%2520male%2520backend%2520developer%252C%2520mid-30s%252C%2520casual%2520tech%2520company%2520style%252C%2520thoughtful%2520expression%252C%2520clean%2520background%252C%2520high%2520quality%2520professional%2520headshot&width=200&height=200&seq=7&orientation=squarish" alt="プロフィール画像" class="w-full h-full object-cover">
+        </div>
+        <div class="ml-3 flex-1">
+          <div class="flex justify-between items-start">
+            <h3 class="font-medium">伊藤 雄太</h3>
+            <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary cursor-pointer">
+              <i class="ri-heart-line ri-lg"></i>
+            </button>
+          </div>
+          <div class="flex items-center mt-1">
+            <div class="rating-stars flex items-center">
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-line ri-xs"></i>
+            </div>
+            <span class="text-xs ml-1">4.0 (15件)</span>
+          </div>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">バックエンド開発</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">Python</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">Django</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 line-clamp-2">バックエンドエンジニアとして、PythonとDjangoを使ったAPI開発やシステム構築を得意としています。セキュリティと拡張性を重視した設計が強みです。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- スキル提供者カード8 -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 cursor-pointer">
+      <div class="flex items-start">
+        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+          <img src="https://readdy.ai/api/search-image?query=professional%2520portrait%2520of%2520a%2520Japanese%2520female%2520illustrator%252C%2520mid-20s%252C%2520artistic%2520casual%2520style%252C%2520creative%2520appearance%252C%2520clean%2520background%252C%2520high%2520quality%2520professional%2520headshot&width=200&height=200&seq=8&orientation=squarish" alt="プロフィール画像" class="w-full h-full object-cover">
+        </div>
+        <div class="ml-3 flex-1">
+          <div class="flex justify-between items-start">
+            <h3 class="font-medium">木村 さくら</h3>
+            <button class="w-8 h-8 flex items-center justify-center text-primary cursor-pointer">
+              <i class="ri-heart-fill ri-lg"></i>
+            </button>
+          </div>
+          <div class="flex items-center mt-1">
+            <div class="rating-stars flex items-center">
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+              <i class="ri-star-fill ri-xs"></i>
+            </div>
+            <span class="text-xs ml-1">4.9 (37件)</span>
+          </div>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">イラスト制作</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">キャラクターデザイン</span>
+            <span class="skill-tag text-xs px-2 py-0.5 rounded-full">Procreate</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 line-clamp-2">イラストレーターとして、商業イラストからキャラクターデザインまで幅広く制作しています。かわいいタッチから繊細なタッチまで対応可能です。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- フィルターモーダル -->
+<div id="filterModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+  <div class="bg-white rounded-t-xl absolute bottom-0 left-0 right-0 max-h-[90vh] overflow-y-auto">
+    <div class="sticky top-0 bg-white border-b border-gray-100 px-4 py-3 flex justify-between items-center">
+      <h3 class="font-medium">詳細検索</h3>
+      <button id="closeFilterModal" class="w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+    
+    <div class="p-4 space-y-6">
+      <!-- スキル -->
+      <div>
+        <h4 class="font-medium mb-2">スキル</h4>
+        <div class="flex flex-wrap gap-2">
+          <div class="flex items-center bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+            <span>JavaScript</span>
+            <button class="ml-1.5 text-gray-400 w-4 h-4 flex items-center justify-center">
+              <i class="ri-close-line"></i>
+            </button>
+          </div>
+          <div class="flex items-center bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+            <span>UI/UXデザイン</span>
+            <button class="ml-1.5 text-gray-400 w-4 h-4 flex items-center justify-center">
+              <i class="ri-close-line"></i>
+            </button>
+          </div>
+          <button class="flex items-center bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">
+            <i class="ri-add-line mr-1"></i>
+            <span>追加</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- 評価 -->
+      <div>
+        <h4 class="font-medium mb-2">評価</h4>
+        <div class="space-y-3">
+          <div class="flex items-center space-x-2">
+            <input type="checkbox" id="rating5" class="w-4 h-4 accent-primary">
+            <label for="rating5" class="text-sm flex items-center">
+              <div class="rating-stars flex items-center">
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-fill ri-xs"></i>
+              </div>
+              <span class="ml-1">5.0以上</span>
+            </label>
+          </div>
+          <div class="flex items-center space-x-2">
+            <input type="checkbox" id="rating4" class="w-4 h-4 accent-primary" checked>
+            <label for="rating4" class="text-sm flex items-center">
+              <div class="rating-stars flex items-center">
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-line ri-xs"></i>
+              </div>
+              <span class="ml-1">4.0以上</span>
+            </label>
+          </div>
+          <div class="flex items-center space-x-2">
+            <input type="checkbox" id="rating3" class="w-4 h-4 accent-primary">
+            <label for="rating3" class="text-sm flex items-center">
+              <div class="rating-stars flex items-center">
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-fill ri-xs"></i>
+                <i class="ri-star-line ri-xs"></i>
+                <i class="ri-star-line ri-xs"></i>
+              </div>
+              <span class="ml-1">3.0以上</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 対応可能時間 -->
+      <div>
+        <h4 class="font-medium mb-2">対応可能時間</h4>
+        <div class="flex flex-wrap gap-2">
+          <button class="bg-primary text-white rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">平日日中</button>
+          <button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">平日夜間</button>
+          <button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">土日祝日</button>
+          <button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">不定期</button>
+        </div>
+      </div>
+      
+      <!-- 対応形態 -->
+      <div>
+        <h4 class="font-medium mb-2">対応形態</h4>
+        <div class="flex flex-wrap gap-2">
+          <button class="bg-primary text-white rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">リモート</button>
+          <button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">対面可</button>
+          <button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">出張可</button>
+        </div>
+      </div>
+
+      <!-- 経験年数 -->
+      <div>
+        <h4 class="font-medium mb-2">経験年数</h4>
+        <div class="flex flex-wrap gap-2">
+          <button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">1年未満</button>
+          <button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">1-3年</button>
+          <button class="bg-primary text-white rounded-full px-3 py-1.5 text-xs cursor-pointer !rounded-button">3-5年</button>
+          <button class="bg-gray-50 rounded-full px-3 py-1.5 text-xs cursor-pointer">5年以上</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="sticky bottom-0 bg-white border-t border-gray-100 p-4 flex space-x-3">
+      <button id="resetFilter" class="flex-1 py-2.5 border border-gray-300 rounded-lg text-sm font-medium cursor-pointer !rounded-button">リセット</button>
+      <button id="applyFilter" class="flex-1 py-2.5 bg-primary text-white rounded-lg text-sm font-medium cursor-pointer !rounded-button">適用する</button>
+    </div>
+  </div>
+</div>
+
+<!-- 投稿ボタン -->
+<div class="fixed bottom-20 right-4 z-40">
+  <button id="addButton" class="w-14 h-14 rounded-full bg-primary text-white shadow-lg flex items-center justify-center cursor-pointer">
+    <i class="ri-add-fill ri-xl"></i>
+  </button>
+</div>
+
+<!-- 投稿モーダル -->
+<div id="postModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+  <div class="bg-white rounded-lg w-[320px] p-6 mx-4">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-lg font-medium">新規投稿</h3>
+      <button id="closeModal" class="w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+    <div class="space-y-4">
+      <button id="postProject" class="w-full flex items-center space-x-3 bg-gray-50 hover:bg-gray-100 p-4 rounded-lg transition-colors cursor-pointer">
+        <div class="w-10 h-10 rounded-full bg-primary bg-opacity-10 flex items-center justify-center">
+          <i class="ri-briefcase-line ri-lg text-primary"></i>
+        </div>
+        <div class="text-left">
+          <h4 class="font-medium">案件を投稿する</h4>
+          <p class="text-sm text-gray-500">仕事や案件の募集を投稿</p>
+        </div>
+      </button>
+      <button id="postSkill" class="w-full flex items-center space-x-3 bg-gray-50 hover:bg-gray-100 p-4 rounded-lg transition-colors cursor-pointer">
+        <div class="w-10 h-10 rounded-full bg-primary bg-opacity-10 flex items-center justify-center">
+          <i class="ri-user-star-line ri-lg text-primary"></i>
+        </div>
+        <div class="text-left">
+          <h4 class="font-medium">スキルを登録する</h4>
+          <p class="text-sm text-gray-500">あなたのスキルをアピール</p>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ボトムナビゲーション -->
+<nav class="bg-white shadow-lg fixed bottom-0 left-0 w-full z-50 border-t border-gray-200">
+  <div class="grid grid-cols-5 h-16">
+    <a href="https://readdy.ai/home/1ba021c7-5f2f-42bb-8777-a83709ae9824/fa00f9ac-8007-428b-8fdf-2b986b92e5d6" data-readdy="true" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-home-5-line ri-lg"></i>
+      </div>
+      <span class="text-xs mt-1">ホーム</span>
+    </a>
+    <a href="#" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-search-line ri-lg"></i>
+      </div>
+      <span class="text-xs mt-1">検索</span>
+    </a>
+    <a href="#" class="flex flex-col items-center justify-center text-primary cursor-pointer">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-search-fill ri-lg"></i>
+      </div>
+      <span class="text-xs mt-1">スキル</span>
+    </a>
+    <a href="#" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-message-3-line ri-lg"></i>
+      </div>
+      <span class="text-xs mt-1">メッセージ</span>
+    </a>
+    <a href="#" class="flex flex-col items-center justify-center text-gray-500 cursor-pointer">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-line ri-lg"></i>
+      </div>
+      <span class="text-xs mt-1">プロフィール</span>
+    </a>
+  </div>
+</nav>
+
+<script id="favoriteToggle">
+document.addEventListener('DOMContentLoaded', function() {
+  const favoriteButtons = document.querySelectorAll('.w-8.h-8.flex.items-center.justify-center');
+  favoriteButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const icon = this.querySelector('i');
+      if (icon.classList.contains('ri-heart-line')) {
+        icon.classList.remove('ri-heart-line');
+        icon.classList.add('ri-heart-fill');
+        this.classList.remove('text-gray-400');
+        this.classList.add('text-primary');
+      } else {
+        icon.classList.remove('ri-heart-fill');
+        icon.classList.add('ri-heart-line');
+        this.classList.remove('text-primary');
+        this.classList.add('text-gray-400');
+      }
+    });
+  });
+});
+</script>
+
+<script id="modalHandler">
+document.addEventListener('DOMContentLoaded', function() {
+  const addButton = document.getElementById('addButton');
+  const postModal = document.getElementById('postModal');
+  const closeModal = document.getElementById('closeModal');
+  const postProject = document.getElementById('postProject');
+  const postSkill = document.getElementById('postSkill');
+  
+  function toggleModal() {
+    postModal.classList.toggle('hidden');
+  }
+  
+  addButton.addEventListener('click', toggleModal);
+  closeModal.addEventListener('click', toggleModal);
+  
+  postModal.addEventListener('click', function(e) {
+    if (e.target === this) {
+      toggleModal();
+    }
+  });
+  
+  postProject.addEventListener('click', function() {
+    console.log('Navigate to project post form');
+    toggleModal();
+  });
+  
+  postSkill.addEventListener('click', function() {
+    console.log('Navigate to skill registration form');
+    toggleModal();
+  });
+});
+</script>
+
+<script id="filterModalHandler">
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButton = document.getElementById('filterButton');
+  const filterModal = document.getElementById('filterModal');
+  const closeFilterModal = document.getElementById('closeFilterModal');
+  const applyFilter = document.getElementById('applyFilter');
+  const resetFilter = document.getElementById('resetFilter');
+  
+  function toggleFilterModal() {
+    filterModal.classList.toggle('hidden');
+  }
+  
+  filterButton.addEventListener('click', toggleFilterModal);
+  closeFilterModal.addEventListener('click', toggleFilterModal);
+  
+  filterModal.addEventListener('click', function(e) {
+    if (e.target === this) {
+      toggleFilterModal();
+    }
+  });
+  
+  applyFilter.addEventListener('click', function() {
+    console.log('Apply filter');
+    toggleFilterModal();
+  });
+  
+  resetFilter.addEventListener('click', function() {
+    console.log('Reset filter');
+    // Reset filter logic here
+  });
+});
+</script>
+
+<script id="categoryFilterHandler">
+document.addEventListener('DOMContentLoaded', function() {
+  const categoryButtons = document.querySelectorAll('.px-4.py-3.bg-white.border-b.border-gray-100.overflow-x-auto button');
+  
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Remove active class from all buttons
+      categoryButtons.forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-white');
+        btn.classList.add('bg-gray-100');
+      });
+      
+      // Add active class to clicked button
+      this.classList.remove('bg-gray-100');
+      this.classList.add('bg-primary', 'text-white');
+      
+      // Filter logic would go here
+      console.log('Filter by category:', this.textContent.trim());
+    });
+  });
+});
+</script>
+
+<script id="searchHandler">
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('searchInput');
+  
+  searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      console.log('Search for:', this.value);
+      // Search logic would go here
+    }
+  });
+});
+</script>
+
+<script id="navigationHandler">
+document.addEventListener('DOMContentLoaded', function() {
+  const navItems = document.querySelectorAll('nav.fixed.bottom-0 a');
+  navItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+      if (!this.getAttribute('href').startsWith('http')) {
+        e.preventDefault();
+      }
+      
+      // Remove active class from all items
+      navItems.forEach(navItem => {
+        navItem.classList.remove('text-primary');
+        navItem.classList.add('text-gray-500');
+        const icon = navItem.querySelector('i');
+        if (icon.classList.contains('ri-home-5-fill')) {
+          icon.classList.remove('ri-home-5-fill');
+          icon.classList.add('ri-home-5-line');
+        } else if (icon.classList.contains('ri-search-fill')) {
+          icon.classList.remove('ri-search-fill');
+          icon.classList.add('ri-search-line');
+        } else if (icon.classList.contains('ri-user-search-fill')) {
+          icon.classList.remove('ri-user-search-fill');
+          icon.classList.add('ri-user-search-line');
+        } else if (icon.classList.contains('ri-message-3-fill')) {
+          icon.classList.remove('ri-message-3-fill');
+          icon.classList.add('ri-message-3-line');
+        } else if (icon.classList.contains('ri-user-fill')) {
+          icon.classList.remove('ri-user-fill');
+          icon.classList.add('ri-user-line');
+        }
+      });
+      
+      // Add active class to clicked item
+      this.classList.remove('text-gray-500');
+      this.classList.add('text-primary');
+      const icon = this.querySelector('i');
+      if (icon.classList.contains('ri-home-5-line')) {
+        icon.classList.remove('ri-home-5-line');
+        icon.classList.add('ri-home-5-fill');
+      } else if (icon.classList.contains('ri-search-line')) {
+        icon.classList.remove('ri-search-line');
+        icon.classList.add('ri-search-fill');
+      } else if (icon.classList.contains('ri-user-search-line')) {
+        icon.classList.remove('ri-user-search-line');
+        icon.classList.add('ri-user-search-fill');
+      } else if (icon.classList.contains('ri-message-3-line')) {
+        icon.classList.remove('ri-message-3-line');
+        icon.classList.add('ri-message-3-fill');
+      } else if (icon.classList.contains('ri-user-line')) {
+        icon.classList.remove('ri-user-line');
+        icon.classList.add('ri-user-fill');
+      }
+    });
+  });
+});
+</script>
+
+<!-- ボトムナビゲーション -->
+<nav class="bg-white shadow-lg fixed bottom-0 left-0 w-full z-50 border-t border-gray-200">
+  <div class="grid grid-cols-5 h-16 text-xs">
+    <a href="/home.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-home-5-line ri-lg"></i>
+      </div>
+      <span class="mt-1">ホーム</span>
+    </a>
+    <a href="/search.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-search-line ri-lg"></i>
+      </div>
+      <span class="mt-1">検索</span>
+    </a>
+    <a href="/skills.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-search-line ri-lg"></i>
+      </div>
+      <span class="mt-1">スキル</span>
+    </a>
+    <a href="/messages.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-message-3-line ri-lg"></i>
+      </div>
+      <span class="mt-1">メッセージ</span>
+    </a>
+    <a href="/profile.html" class="flex flex-col items-center justify-center text-gray-500 hover:text-primary">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-line ri-lg"></i>
+      </div>
+      <span class="mt-1">プロフィール</span>
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>
